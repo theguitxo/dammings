@@ -1,0 +1,42 @@
+.dammings-error-info {
+  &__container {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__wrapper {
+    border: solid 1px #000;
+    border-radius: .25rem;
+    padding: .5rem 1rem;
+
+    box-shadow: 3px 3px 2px 0px rgba(0, 0, 0, 1);
+    
+    display: flex;
+    align-items: flex-start;
+    gap: .5rem;
+
+    width: 100%;
+
+    @media (min-width: 480px) {
+      width: 50%;
+    }
+    
+  }
+
+  &__alert-icon {
+    & img {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+
+  &__alert-info {
+    display: flex;
+    flex-direction: column;
+    word-break: break-all;
+  }
+
+  &__info-title {
+    font-weight: bold;
+  }
+}

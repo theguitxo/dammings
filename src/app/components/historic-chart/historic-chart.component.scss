@@ -1,0 +1,27 @@
+.dammings-historic-chart {
+  &__quotes-text {
+    font-size: .125rem;
+    color: #AAA;
+  }
+
+  &__value-point {
+    cursor: pointer;
+  }
+
+  &__wrapper-tooltip {
+    animation-name: dammings-historic-chart-tooltip-enter;
+    animation-duration: .5s;
+    animation-timing-function: ease-in-out;
+
+  }
+
+  &__value-tooltip {
+    font-size: .125rem;
+    text-align: center;
+  }
+}
+
+@keyframes dammings-historic-chart-tooltip-enter {
+  from {opacity: 0}
+  to {opacity: 1}
+}

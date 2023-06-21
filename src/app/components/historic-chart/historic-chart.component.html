@@ -1,0 +1,67 @@
+<svg viewBox="0 0 100 55" xmlns="hkttp://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="100" height="55" stroke="black" stroke-width="0.25" fill="none"></rect>
+
+  <ng-container *ngFor="let hline of horizontalLines">
+    <line
+      [attr.x1]="hline.x1" [attr.y1]="hline.y"
+      [attr.x2]="hline.x2" [attr.y2]="hline.y"
+      stroke="#AAA" stroke-width="0.25"></line>
+    <text
+      [attr.x]="hline.xText" [attr.y]="hline.yText"
+      class="dammings-historic-chart__quotes-text">{{ hline.text }}</text>
+  </ng-container>
+
+  <ng-container *ngFor="let vline of verticalLines">
+    <line
+      [attr.x1]="vline.xLine" y1="47"
+      [attr.x2]="vline.xLine" y2="3"
+      stroke="#AAA" stroke-width="0.25">
+    </line>
+    <text
+      [attr.x]="vline.xLine" y="50"
+      transform="translate(-3.5, 0)"
+      class="dammings-historic-chart__quotes-text">{{ vline.text }}</text>
+  </ng-container>
+
+  <ng-container *ngFor="let line of lines">
+    <line
+      [attr.x1]="line.x1" [attr.y1]="line.y1"
+      [attr.x2]="line.x2" [attr.y2]="line.y2"
+      stroke="blue" stroke-width="0.50"></line>
+  </ng-container>
+
+  <ng-container *ngFor="let point of valuePoints; let i = index">
+    <circle
+      [attr.cx]="point.cx"
+      [attr.cy]="point.cy"
+      r="1" fill="blue"
+      class="dammings-historic-chart__value-point"
+      (mouseenter)="showTooltip(i)"
+      (mouseleave)="hideTooltip(i)">
+    </circle>
+  </ng-container>
+
+  <ng-container *ngFor="let tooltip of valueTooltips">
+    <g
+      *ngIf="tooltip.show"
+      class="dammings-historic-chart__wrapper-tooltip">
+      <rect
+        [attr.x]="tooltip.x"
+        [attr.y]="tooltip.y"
+        rx="0.5"
+        ry="0.5"
+        transform="translate(-4, -5)"
+        width="8" height="2.5" fill="black">
+      </rect>
+      <text
+        [attr.x]="tooltip.x"
+        [attr.y]="tooltip.y"
+        text-anchor="middle"
+        transform="translate(0, -3.2)"
+        class="dammings-historic-chart__value-tooltip"
+        fill="white">
+        {{ tooltip.text }}%
+      </text>
+    </g>
+  </ng-container>
+</svg>

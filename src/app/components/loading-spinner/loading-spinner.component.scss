@@ -1,0 +1,84 @@
+.dammings-loading-spinner {
+  &__container {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__wrapper {
+    align-self: center;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__spinner {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+
+    & div {
+      transform-origin: 40px 40px;
+      animation: dammings-loading-spinner 1.2s linear infinite;
+
+      &::after {
+        content: " ";
+        display: block;
+        position: absolute;
+        top: 3px;
+        left: 37px;
+        width: 6px;
+        height: 18px;
+        border-radius: 20%;
+        background: #000;
+      }
+
+      $init: 1;
+
+      @while $init < 13 {
+        &:nth-child(#{$init}) {
+          transform: rotate(#{($init * 30) - 30}deg);
+          animation-delay: #{-1.2 + ($init * .1)}s;
+          opacity: 0;
+        }
+    
+        $init: $init + 1;
+      }
+    }
+  }
+
+  &__text {
+    display: inline-block;
+    padding-top: 1rem;
+    align-self: self-start;
+
+    &::after {
+      animation: dammings-loading-text 1.2s linear infinite;
+      content: '';
+    }
+  }
+}
+
+@keyframes dammings-loading-text {
+  0% {
+    content: '';
+  }
+  25% {
+    content: '.';
+  }
+  50% {
+    content: '..';
+  }
+  75% {
+    content: '...';
+  }
+}
+
+@keyframes dammings-loading-spinner {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

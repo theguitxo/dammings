@@ -1,0 +1,32 @@
+.dammings-damm-info {
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+  }
+
+  &__table {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: repeat(3, auto);
+    gap: .25rem;
+  }
+
+  &__title,
+  &__data {
+    display:grid;
+    align-items: self-start;
+  }
+
+  &__title {
+    font-weight: bold;
+    text-align: end;
+    word-break: break-word;
+  }
+
+  &__more-button {
+    display: flex;
+    justify-content: end;
+    padding: .5rem 0 1rem 0;
+  }
+}

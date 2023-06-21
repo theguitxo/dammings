@@ -1,0 +1,34 @@
+.dammings-pie-chart {
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__background,
+  &__percent {
+    &:not(:root) {
+      overflow: visible;
+    }
+  }
+
+  &__background {
+    & circle {
+      stroke: #2874A6;
+      fill: #5DADE2;
+      stroke-width: 2px;
+    }
+  }
+
+  &__percent {
+    position: absolute;
+    & circle {
+      fill: none;
+      stroke: #2874A6;
+      stroke-width: 50%;
+      stroke-dasharray: 200% 100%;
+      transition-duration: 1.5s;
+      transition-timing-function: ease-in-out;
+      cursor: pointer;
+    }
+  }
+}

@@ -1,0 +1,52 @@
+<div class="dammings-detail__header">
+  <div class="dammings-detail__info">
+    {{ stationName }}
+  </div>
+  <div
+    class="dammings__button dammings__button--green"
+    (click)="goBack()">
+    BACK
+  </div>
+</div>
+<dammings-errors-info></dammings-errors-info>
+<div
+  *ngIf="showHistoricData()"
+  class="dammings-detail__data-wrapper">
+  <div class="dammings-detail__data-item">
+    <dammings-historic-chart [info]="stationsData()"></dammings-historic-chart>
+  </div>
+  <div class="dammings-detail__data-item">
+    <table
+      aria-label="Historic data"
+      class="dammings-detail__data-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Percentage (%)</th>
+          <th>Diff. Percentage (%)</th>
+          <th>Volume (hm<sup>3</sup>)</th>
+          <th>Diff. Volume (hm<sup>3</sup>)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let line of tableData()">
+          <td>{{ line.date }}</td>
+          <td class="data-value">{{ line.percentageFormatted }}</td>
+          <td
+            class="data-value difference-value"
+            [class.positive]="!line.diffPercentageIsNegative"
+            [class.negative]="line.diffPercentageIsNegative">
+            {{ line.diffPercentageFormatted }}
+          </td>
+          <td class="data-value">{{ line.volumeFormatted }}</td>
+          <td
+            class="data-value difference-value"
+            [class.positive]="!line.diffVolumeIsNegative"
+            [class.negative]="line.diffVolumeIsNegative">
+            {{ line.diffVolumeFormatted }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
