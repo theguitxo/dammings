@@ -1,6 +1,6 @@
 import { Injectable, inject } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, Subject, catchError, of, take } from "rxjs";
+import { BehaviorSubject, Observable, Subject, catchError, last, of, take } from "rxjs";
 import { DammingsInfo } from "../app.models";
 
 @Injectable()
@@ -91,9 +91,36 @@ export class DammingsService {
 
     this.setStationsID();
 
-    this._lastAllStationData.next(this._info.slice(0, this._totalStations).sort((a, b) => a.estaci < b.estaci ? -1 : 1));
+    this._lastAllStationData.next(this.getLastAllStationsData());
 
     this._dataLoaded.next(true);
+  }
+
+  private getLastAllStationsData(): any[] {
+    const last2Days = Array.from(new Set(this._info.map(i => i.dia))).slice(0, 2).sort((a, b) => a < b ? 1 : -1);
+
+    const firstDayList: DammingsInfo[] = [];
+    const secondDayList: DammingsInfo[] = [];
+
+    this.stationNames.forEach(name => {
+      const first = this._info.find(item => item.estaci === name && item.dia === last2Days[0]);
+      const second = this._info.find(item => item.estaci === name && item.dia === last2Days[1]);
+
+      if (first) {
+        firstDayList.push(first);
+      }
+
+      if (second) {
+        secondDayList.push(second);
+      }
+    });
+
+    const result = secondDayList.map(second => {
+      const inFirst = firstDayList.find(first => first.estaci === second.estaci);
+      return inFirst ?? second;
+    });
+
+    return result.sort((a, b) => a.estaci < b.estaci ? -1 : 1);
   }
 
   private errorLoadingData(): Observable<DammingsInfo[]> {

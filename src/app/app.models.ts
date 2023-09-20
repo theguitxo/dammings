@@ -1,3 +1,4 @@
+// MODELS
 export interface DammingsInfo {
   id?: string;
   dia: string;
@@ -66,4 +67,12 @@ export interface HistoricDataTableRow {
   diffVolume: number | null;
   diffVolumeFormatted: string;
   diffVolumeIsNegative: boolean;
+};
+
+// CONSTANTS
+
+export enum LANGUAGES {
+  ENGLISH = 'en',
+  SPANISH = 'es',
+  CATALAN = 'ca'
 };

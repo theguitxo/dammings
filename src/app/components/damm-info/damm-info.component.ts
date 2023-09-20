@@ -3,6 +3,8 @@ import { ChangeDetectionStrategy, Component, Input, OnInit, inject } from "@angu
 import { DammingsInfo } from "../../app.models";
 import { PieChartComponent } from "../pie-chart/pie-chart.component";
 import { Router } from "@angular/router";
+import { TranslateModule } from "@ngx-translate/core";
+import { FirstUpperCasePipe } from "../../pipes/first-uppercase.pipe";
 
 @Component({
   selector: 'dammings-damm-info',
@@ -10,7 +12,11 @@ import { Router } from "@angular/router";
   styleUrls: ['./damm-info.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, PieChartComponent]
+  imports: [
+    CommonModule,
+    PieChartComponent,
+    TranslateModule,
+    FirstUpperCasePipe]
 })
 export class DammInfoComponent implements OnInit {
   

@@ -1,0 +1,18 @@
+{
+  "common": {
+    "date": "fecha",
+    "back": "volver"
+  },
+  "damm-info": {
+    "damm": "embalse",
+    "dammed-watter": "agua embalsada",
+    "see-last-seven-days-information": "ver información de los últimos 7 días"
+  },
+  "historic-table": {
+    "aria-label": "Tabla de datos historicos",
+    "percentage": "porcentaje",
+    "diff-percentage": "dif. porcentaje",
+    "volume": "volumen",
+    "diff-volume": "dif. volumen"
+  }
+}

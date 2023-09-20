@@ -1,0 +1,44 @@
+.dammings-detail {
+  &__historic-table {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+
+    th, td {
+      padding: .5rem;
+
+      &.data-value {
+        text-align: end;
+      }
+
+      &.difference-value {
+        font-weight: bold;
+      }
+
+      &.positive {
+        color: #0E6251;
+      }
+
+      &.negative {
+        color: #DB312C;
+      }
+    }
+
+    thead {
+      tr {
+        background-color: #A9CCE3;
+        border-bottom: solid 1px #1A5276;
+        color: #1A5276;
+      }
+    }
+
+    tbody {
+      tr:nth-child(odd) {
+        background-color: #FCF3CF;
+      }
+      tr:nth-child(even) {
+        background-color: #FAD7A0;
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "common": {
+    "date": "data",
+    "back": "tornar"
+  },
+  "damm-info": {
+    "damm": "embassament",
+    "dammed-watter": "aigua embassada",
+    "see-last-seven-days-information": "veure informació dels darrers 7 dies"
+  },
+  "historic-table": {
+    "aria-label": "Taula de dades històriques",
+    "percentage": "percentatge",
+    "diff-percentage": "dif. percentatge",
+    "volume": "volum",
+    "diff-volume": "dif. volum"
+  }
+}

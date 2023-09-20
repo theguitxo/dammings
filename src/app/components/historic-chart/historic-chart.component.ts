@@ -18,7 +18,6 @@ const Y_LABELS_POS_Y_TRANSLATION = .5;
   standalone: true,
   imports: [CommonModule]
 })
-
 export class HistoricChartComponent implements OnInit {
 
   @Input() info!: DammingsInfo[];
