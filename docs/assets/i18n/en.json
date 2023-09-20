@@ -1,0 +1,18 @@
+{
+  "common": {
+    "date": "date",
+    "back": "back"
+  },
+  "damm-info": {
+    "damm": "damm",
+    "dammed-watter": "dammed water",
+    "see-last-seven-days-information": "see last 7 days information"
+  },
+  "historic-table": {
+    "aria-label": "Historic data table",
+    "percentage": "percentage",
+    "diff-percentage": "diff. percentage",
+    "volume": "volume",
+    "diff-volume": "diff. volume"
+  }
+}
