@@ -1,4 +1,7 @@
 {
+  "app": {
+    "title": "Embalsaments de Catalunya"
+  },
   "common": {
     "date": "data",
     "back": "tornar"
@@ -14,5 +17,10 @@
     "diff-percentage": "dif. percentatge",
     "volume": "volum",
     "diff-volume": "dif. volum"
+  },
+  "language-selector": {
+    "english": "Anglès",
+    "spanish": "Espanyol",
+    "catalan": "Català"
   }
 }

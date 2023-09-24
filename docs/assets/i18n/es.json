@@ -1,12 +1,15 @@
 {
-  "common": {
-    "date": "fecha",
-    "back": "volver"
+  "app": {
+    "title": "Embalses de Cataluña"
   },
   "damm-info": {
     "damm": "embalse",
     "dammed-watter": "agua embalsada",
     "see-last-seven-days-information": "ver información de los últimos 7 días"
+  },
+  "common": {
+    "date": "fecha",
+    "back": "volver"
   },
   "historic-table": {
     "aria-label": "Tabla de datos historicos",
@@ -14,5 +17,10 @@
     "diff-percentage": "dif. porcentaje",
     "volume": "volumen",
     "diff-volume": "dif. volumen"
+  },
+  "language-selector": {
+    "english": "Inglés",
+    "spanish": "Español",
+    "catalan": "Catalán"
   }
 }
