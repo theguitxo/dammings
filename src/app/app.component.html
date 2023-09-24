@@ -1,13 +1,18 @@
-<div style="padding: 0 .5rem 1rem .5rem; display: flex; gap: .5rem; align-items: center;">
-  Language:
-  <button
-    class="dammings__button dammings__button--green"
-    (click)="changeLanguage(languages.get('ENGLISH'))">ENGLISH</button>
-  <button
-    class="dammings__button dammings__button--green"
-    (click)="changeLanguage(languages.get('SPANISH'))">SPANISH</button>
-  <button
-    class="dammings__button dammings__button--green"
-    (click)="changeLanguage(languages.get('CATALAN'))">CATALAN</button>
+<div class="dammings-app__title-bar">
+  <div class="dammings-app__title-text">
+    {{ 'app.title' | translate }}
+  </div>
+  <dammings-language-selector></dammings-language-selector>
+  <!-- <div class="dammings-app__language-selector">
+    <button
+      class="dammings__button dammings__button--green"
+      (click)="changeLanguage(languages.get('ENGLISH'))">ENGLISH</button>
+    <button
+      class="dammings__button dammings__button--green"
+      (click)="changeLanguage(languages.get('SPANISH'))">SPANISH</button>
+    <button
+      class="dammings__button dammings__button--green"
+      (click)="changeLanguage(languages.get('CATALAN'))">CATALAN</button>
+  </div> -->
 </div>
 <router-outlet></router-outlet>

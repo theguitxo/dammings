@@ -1,0 +1,17 @@
+.dammings-app {
+  &__title-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border: solid 1px #000;
+    border-radius: .25rem;
+
+    margin-bottom: 1rem;
+    padding: 1rem;
+  }
+
+  &__title-text {
+    font-size: 1.5rem;
+  }
+}

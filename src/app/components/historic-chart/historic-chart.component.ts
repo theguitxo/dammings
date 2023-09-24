@@ -62,10 +62,12 @@ export class HistoricChartComponent implements OnInit {
       totalItems,
       init,
       end,
-      gapInitEnd: end - init,
+      gapInitEnd: (end - init) > 0 ? end - init : 1,
       chartGap,
       chartLabels: new Array(totalItems + 1).fill('').map((_v, i) => `${(end - (i * chartGap)).toFixed(2)}%`)
     };
+
+    console.log(this.horizontalLinesValues);
   }
 
   private setHorizontalLines(): void {
@@ -104,6 +106,10 @@ export class HistoricChartComponent implements OnInit {
       y1: this.yPoints[i],
       y2: this.yPoints[i + 1]
     }));
+
+    console.log(this.yPoints);
+
+    console.log(this.lines);
   }
 
   private setValuePoints(): void {
