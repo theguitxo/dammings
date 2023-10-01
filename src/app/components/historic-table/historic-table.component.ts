@@ -27,9 +27,8 @@ export class HistoricTableComponent implements OnInit {
   }
 
   private setTableData() {
-    const dataList = [...this.info].reverse();
-    const tableData = dataList.map((v, i) => {
-      const previous = dataList[i - 1] ?? null;
+    const tableData = this.info.map((v, i) => {
+      const previous = this.info[i - 1] ?? null;
       const percentage = (+v.percentatge_volum_embassat);
       const percentageFormatted = percentage.toFixed(2);
       const diffPercentage = previous ? (+v.percentatge_volum_embassat - +previous.percentatge_volum_embassat): null;

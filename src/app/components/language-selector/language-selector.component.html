@@ -1,6 +1,31 @@
-<div class="dammings-language-selector__button">
-  <img
-    [attr.src]="selectedFlag()"
-    onerror="this.src='assets/images/languages/default.png'"
-    alt="hola">
+<div
+  class="dammings-language-selector__wrapper"
+  [class.selected]="showSelected">
+  <div class="arrow">
+    <div
+      *ngIf="showPrevArrow"
+      class="left"
+      (click)="moveLang(1)">
+    </div>
+  </div>
+  <div class="dammings-language-selector__list">
+    <div
+      #button
+      *ngFor="let item of langsItems"
+      class="dammings-language-selector__button"
+      (click)="selectLang(item)">
+      <img
+        [attr.src]="item.icon"
+        onerror="this.src='assets/images/languages/default.png'"
+        alt="item.code">
+      <span>{{ item.lang | translate }}</span>
+    </div>
+  </div>
+  <div class="arrow">
+    <div
+      *ngIf="showNextArrow"
+      class="right"
+      (click)="moveLang(-1)">
+    </div>
+  </div>
 </div>
