@@ -4,7 +4,8 @@
   },
   "common": {
     "date": "data",
-    "back": "tornar"
+    "back": "tornar",
+    "cancel": "cancel·lar"
   },
   "damm-info": {
     "damm": "embassament",
@@ -21,6 +22,7 @@
   "language-selector": {
     "english": "Anglès",
     "spanish": "Espanyol",
-    "catalan": "Català"
+    "catalan": "Català",
+    "choose-language": "Escolliu un idioma"
   }
 }

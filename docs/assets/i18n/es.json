@@ -9,7 +9,8 @@
   },
   "common": {
     "date": "fecha",
-    "back": "volver"
+    "back": "volver",
+    "cancel": "cancelar"
   },
   "historic-table": {
     "aria-label": "Tabla de datos historicos",
@@ -21,6 +22,7 @@
   "language-selector": {
     "english": "Inglés",
     "spanish": "Español",
-    "catalan": "Catalán"
+    "catalan": "Catalán",
+    "choose-language": "Elija un idioma"
   }
 }

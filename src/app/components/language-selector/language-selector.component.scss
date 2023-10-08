@@ -37,13 +37,13 @@
           -webkit-transform: rotate(135deg);
         }
       }
-      // opacity: 0;
+      opacity: 0;
       transition: all .5s ease-in-out;
     }
 
     &:hover {
       & .arrow {
-        // opacity: 1;
+        opacity: 1;
       }
     }
   }
@@ -56,13 +56,13 @@
 
   &__list {
     padding: 0;
-    width: 5.5rem;
+    width: 6rem;
     overflow-x: hidden;
   }
 
   &__button {
     position: relative;
-    min-width: 5.5rem;
+    min-width: 6rem;
     gap: .5rem;
     img {
       width: 1.6rem;
