@@ -5,16 +5,14 @@ import {
   ViewChildren, inject
 } from "@angular/core";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
-import { LANGUAGES } from "../../app.models";
+import { DialogLanguageDialogData, LANGUAGES, LangItem } from "../../app.models";
 import { CommonModule } from "@angular/common";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { isMobileDevice } from "../../app.utils";
+import { DialogService } from "../../modules/dialog/dialog.service";
+import { DialogLanguageSelectorComponent } from "./dialog/dialog-language-selector.component";
 
-interface LangItem {
-  code: LANGUAGES;
-  icon: string;
-  lang: string;
-  selected: boolean;
-}
+
 
 const LANG_ICON_PATH = 'assets/images/languages/';
 
@@ -24,7 +22,11 @@ const LANG_ICON_PATH = 'assets/images/languages/';
   styleUrls: ['./language-selector.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, TranslateModule]
+  imports: [
+    CommonModule,
+    TranslateModule,
+    DialogLanguageSelectorComponent
+  ]
 })
 export class LanguageSelectorComponent implements OnInit, AfterViewInit {
   @ViewChildren('button') buttons!: QueryList<ElementRef>;
@@ -53,24 +55,21 @@ export class LanguageSelectorComponent implements OnInit, AfterViewInit {
   ];
   buttonsList!: ElementRef[];
   actualButtonIndex!: number;
+  showArrows!: boolean;
   showPrevArrow!: boolean;
   showNextArrow!: boolean;
-  showSelected!: boolean;
+  showingSelected!: boolean;
 
   constructor(
     private translate: TranslateService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private dialog: DialogService
   ) {}
 
   ngOnInit(): void {
+    this.showArrows = !isMobileDevice();
     this.setSelected();
-    this.translate.onLangChange
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(() => {
-      this.setSelected();
-      this.setShowSelected();
-    })
-
+    this.initOnLangChangeSubscription();
   }
 
   ngAfterViewInit(): void {
@@ -90,9 +89,30 @@ export class LanguageSelectorComponent implements OnInit, AfterViewInit {
   }
 
   selectLang(event: LangItem): void {
-    if (!event.selected) {
+    if (isMobileDevice()) {
+      this.openLanguageDialog();
+    } else if (!event.selected) {
       this.translate.use(event.code);
     }
+  }
+
+  private openLanguageDialog(): void {
+    const dialogData: DialogLanguageDialogData = {
+      langs: this.langsItems.filter(lang => !lang.selected)
+    };
+
+    this.dialog.open(DialogLanguageSelectorComponent, {
+      data: dialogData
+    });
+  }
+
+  private initOnLangChangeSubscription(): void {
+    this.translate.onLangChange
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+      this.setSelected();
+      this.setShowSelected();
+    });
   }
 
   private setSelected(): void {
@@ -101,7 +121,7 @@ export class LanguageSelectorComponent implements OnInit, AfterViewInit {
 
   private setShowSelected(): void {
     const indexSelected = this.langsItems?.findIndex(item => item.selected) || 0;
-    this.showSelected = Math.abs(this.actualButtonIndex) === indexSelected;
+    this.showingSelected = Math.abs(this.actualButtonIndex) === indexSelected;
   }
 
   private updateButtonsPosition(): void {

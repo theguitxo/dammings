@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit, Signal, computed, inject } from "@angular/core";
-import { toObservable, toSignal } from "@angular/core/rxjs-interop";
+import { toSignal } from "@angular/core/rxjs-interop";
 import { DammingsInfo } from "../../app.models";
 import { DammingsService } from "../../services/dammings.service";
 import { ErrorsService } from "../../services/errors.service";
@@ -9,6 +9,7 @@ import { LoadingSpinnerComponent } from "../loading-spinner/loading-spinner.comp
 import { ErrorsInfoComponent } from "../errors-info/errors-info.component";
 import { DammInfoComponent } from "../damm-info/damm-info.component";
 import { HistoricChartComponent } from "../historic-chart/historic-chart.component";
+import { isMobileDevice } from "../../app.utils";
 
 @Component({
   selector: 'dammmings-home',

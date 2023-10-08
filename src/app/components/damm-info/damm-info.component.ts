@@ -16,7 +16,8 @@ import { FirstUpperCasePipe } from "../../pipes/first-uppercase.pipe";
     CommonModule,
     PieChartComponent,
     TranslateModule,
-    FirstUpperCasePipe]
+    FirstUpperCasePipe
+  ]
 })
 export class DammInfoComponent implements OnInit {
   

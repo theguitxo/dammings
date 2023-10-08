@@ -1,7 +1,9 @@
 <div
   class="dammings-language-selector__wrapper"
-  [class.selected]="showSelected">
-  <div class="arrow">
+  [class.selected]="showingSelected">
+  <div
+    *ngIf="showArrows"
+    class="arrow">
     <div
       *ngIf="showPrevArrow"
       class="left"
@@ -21,7 +23,9 @@
       <span>{{ item.lang | translate }}</span>
     </div>
   </div>
-  <div class="arrow">
+  <div
+    *ngIf="showArrows"
+    class="arrow">
     <div
       *ngIf="showNextArrow"
       class="right"

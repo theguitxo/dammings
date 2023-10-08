@@ -1,0 +1,24 @@
+<div class="dammings-dialog-language-selector__container">
+  <div class="dammings-dialog-language-selector__title">
+    {{ 'language-selector.choose-language' | translate }}
+  </div>
+  <div class="dammings-dialog-language-selector__buttons">
+    <div
+      *ngFor="let button of config?.data?.langs"
+      class="dammings-dialog-language-selector__button"
+      (click)="changeLang(button.code)">
+      <img
+        [attr.src]="button.icon"
+        onerror="this.src='assets/images/languages/default.png'"
+        alt="button.code">
+      {{ button.lang | translate }}
+    </div>
+  </div>
+  <div class="dammings-dialog-language-selector__footer">
+    <div
+      class="dammings-dialog-language-selector__button"
+      (click)="onClose()">
+      {{ 'common.cancel' | translate | firstuppercase }}
+    </div>
+  </div>
+</div>

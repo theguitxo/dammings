@@ -69,6 +69,17 @@ export interface HistoricDataTableRow {
   diffVolumeIsNegative: boolean;
 };
 
+export interface LangItem {
+  code: LANGUAGES;
+  icon: string;
+  lang: string;
+  selected: boolean;
+};
+
+export interface DialogLanguageDialogData {
+  langs: LangItem[];
+}
+
 // CONSTANTS
 
 export enum LANGUAGES {
