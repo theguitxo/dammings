@@ -68,6 +68,8 @@
       width: 1.6rem;
       height: 1.6rem;
     }
-    transition: all .5s ease-in-out;
+    @media (min-width: 480px) {
+      transition: all .5s ease-in-out;
+    }
   }
 }

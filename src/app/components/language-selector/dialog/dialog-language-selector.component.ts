@@ -21,16 +21,14 @@ import { FirstUpperCasePipe } from '../../../pipes/first-uppercase.pipe';
 export class DialogLanguageSelectorComponent {
   constructor(
     public config: DialogConfig<DialogLanguageDialogData>,
-    private readonly dialog: DialogRef,
-    private readonly translate: TranslateService
+    private readonly dialog: DialogRef
   ){}
 
   changeLang(lang: string): void {
-    this.translate.use(lang);
-    this.onClose();
+    this.dialog.close(lang);
   }
 
-  onClose(): void {
-    this.dialog.close();
+  onCancel(): void {
+    this.dialog.close(null);
   }
 }

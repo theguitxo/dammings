@@ -11,6 +11,7 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { isMobileDevice } from "../../app.utils";
 import { DialogService } from "../../modules/dialog/dialog.service";
 import { DialogLanguageSelectorComponent } from "./dialog/dialog-language-selector.component";
+import { take } from "rxjs/operators";
 
 
 
@@ -101,18 +102,28 @@ export class LanguageSelectorComponent implements OnInit, AfterViewInit {
       langs: this.langsItems.filter(lang => !lang.selected)
     };
 
-    this.dialog.open(DialogLanguageSelectorComponent, {
+    const dialogRef = this.dialog.open(DialogLanguageSelectorComponent, {
       data: dialogData
     });
+    
+    dialogRef.afterClosed
+      .pipe(take(1))
+      .subscribe((lang: string) => {
+        this.translate.use(lang);
+      });
   }
 
   private initOnLangChangeSubscription(): void {
     this.translate.onLangChange
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
-      this.setSelected();
-      this.setShowSelected();
-    });
+        this.setSelected();
+        if (isMobileDevice()) {
+          this.actualButtonIndex = this.langsItems.findIndex(item => item.selected) * -1;
+          this.updateButtonsPosition();
+        }
+        this.setShowSelected();
+      });
   }
 
   private setSelected(): void {
