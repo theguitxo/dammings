@@ -115,12 +115,13 @@ export class DammingsService {
       }
     });
 
-    const result = secondDayList.map(second => {
-      const inFirst = firstDayList.find(first => first.estaci === second.estaci);
-      return inFirst ?? second;
-    });
+    const result = this.stationNames.map(station => {
+      const inFirst = firstDayList.find(first => first.estaci === station);
+      const inSecond = secondDayList.find(second => second.estaci === station);
+      return inFirst ?? inSecond;
+    })?.filter(item => item !== undefined) || [];
 
-    return result.sort((a, b) => a.estaci < b.estaci ? -1 : 1);
+    return result.length <= 0 ? [] : result.sort((a, b) => a!.estaci < b!.estaci ? -1 : 1);
   }
 
   private errorLoadingData(): Observable<DammingsInfo[]> {
