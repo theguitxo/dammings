@@ -5,8 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "copy-not-found": "copyfiles -f ./src/404.html ./dist/dammings",
-    "build": "ng build",
-    "build:prod": "ng build --base-href=/dammings/ && npm run copy-not-found",
+    "build": "ng build && npm run copy-not-found",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
