@@ -1,27 +1,44 @@
-# Dammings
+# Information about dammings of Catalonia
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.4.
+This is an app that show information about the water dammed in Catalonia's damms.
 
-## Development server
+It's made with Angular (version 17). The data are managed by a own service and the graphs are generated with SVG graphics.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+The data of the dammings are provided by the Generalitat de Catalunya. More info in this url:
 
-## Code scaffolding
+[https://analisi.transparenciacatalunya.cat/Medi-Ambient/Quantitat-d-aigua-als-embassaments-de-les-Conques-/gn9e-3qhr/about_data](https://analisi.transparenciacatalunya.cat/Medi-Ambient/Quantitat-d-aigua-als-embassaments-de-les-Conques-/gn9e-3qhr/about_data)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## App run
 
-## Build
+* Clone the repository:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+``` git clone https://github.com/theguitxo/dammings.git ```
 
-## Running unit tests
+* Move to the project folder:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+``` cd dammings ```
 
-## Running end-to-end tests
+* Run the dev server:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+``` npm run start ```
 
-## Further help
+* Navigate to: **http://localhost:4200/dammings**
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Demo
+
+You can see a demo of this app here:
+
+[https://theguitxo.github.io/dammings/](https://theguitxo.github.io/dammings/)
+
+## Screenshots
+
+### Desktop
+
+![](./desktop1.png)
+![](./desktop2.png)
+
+
+### Mobile
+
+![](./mobile1.jpg)
+![](./mobile2.jpg)
