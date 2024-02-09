@@ -22,13 +22,15 @@ The data of the dammings are provided by the Generalitat de Catalunya. More info
 
 ``` npm run start ```
 
-* Navigate to: **http://localhost:4200/dammings**
+* Navigate to: **http://localhost:4200**
 
 ## Demo
 
 You can see a demo of this app here:
 
 [https://theguitxo.github.io/dammings/](https://theguitxo.github.io/dammings/)
+
+[https://dammings.vercel.app/](https://dammings.vercel.app/)
 
 ## Screenshots
 
