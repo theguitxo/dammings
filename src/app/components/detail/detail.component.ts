@@ -1,15 +1,15 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, Injector, Input, OnInit, Signal, computed, effect, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DestroyRef, Injector, Input, OnInit, Signal, computed, effect, inject } from '@angular/core';
 import { DammingsService } from '../../services/dammings.service';
 import { Router } from '@angular/router';
 import { ErrorsService } from '../../services/errors.service';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { DammingsInfo } from '../../app.models';
-import { CommonModule } from '@angular/common';
 import { ErrorsInfoComponent } from '../errors-info/errors-info.component';
 import { HistoricChartComponent } from '../historic-chart/historic-chart.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { FirstUpperCasePipe } from '../../pipes/first-uppercase.pipe';
 import { HistoricTableComponent } from '../historic-table/historic-table.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'dammings-detail',
@@ -29,17 +29,17 @@ import { HistoricTableComponent } from '../historic-table/historic-table.compone
 export class DetailComponent implements OnInit {
   @Input() id!: string;
 
+  private injector = inject(Injector);
   private destroyRef = inject(DestroyRef);
   private router = inject(Router);
   private dammingsService = inject(DammingsService);
+  private cd = inject(ChangeDetectorRef);
 
   errorsService = inject(ErrorsService);
 
   showHistoricData!: Signal<boolean>;
   stationsData!: Signal<DammingsInfo[]>;
   stationName!: string
-
-  private injector = inject(Injector);
 
   ngOnInit(): void {
     this.setSignals();
@@ -55,6 +55,7 @@ export class DetailComponent implements OnInit {
     effect(() => {
       if(this.stationsData()?.length) {
         this.stationName = this.stationsData()[0].estaci;
+        this.cd.markForCheck();
       }
     }, {
       injector: this.injector

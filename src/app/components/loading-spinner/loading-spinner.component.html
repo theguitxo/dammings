@@ -1,23 +1,23 @@
-<div
-  *ngIf="loading()"
-  class="dammings-loading-spinner__container">
-  <div class="dammings-loading-spinner__wrapper">
-    <div class="dammings-loading-spinner__spinner">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-    <div class="dammings-loading-spinner__text">
-      Loading
+@if (loading()) {
+  <div class="dammings-loading-spinner__container">
+    <div class="dammings-loading-spinner__wrapper">
+      <div class="dammings-loading-spinner__spinner">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="dammings-loading-spinner__text">
+        {{ 'common.loading' | translate }}
+      </div>
     </div>
   </div>
-</div>
+}

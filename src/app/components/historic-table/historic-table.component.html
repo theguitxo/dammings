@@ -11,22 +11,24 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let line of tableData">
-      <td>{{ line.date }}</td>
-      <td class="data-value">{{ line.percentageFormatted }}</td>
-      <td
-        class="data-value difference-value"
-        [class.positive]="!line.diffPercentageIsNegative"
-        [class.negative]="line.diffPercentageIsNegative">
-        {{ line.diffPercentageFormatted }}
-      </td>
-      <td class="data-value">{{ line.volumeFormatted }}</td>
-      <td
-        class="data-value difference-value"
-        [class.positive]="!line.diffVolumeIsNegative"
-        [class.negative]="line.diffVolumeIsNegative">
-        {{ line.diffVolumeFormatted }}
-      </td>
-    </tr>
+    @for (line of tableData; track line) {
+      <tr>
+        <td>{{ line.date }}</td>
+        <td class="data-value">{{ line.percentageFormatted }}</td>
+        <td
+          class="data-value difference-value"
+          [class.positive]="!line.diffPercentageIsNegative"
+          [class.negative]="line.diffPercentageIsNegative">
+          {{ line.diffPercentageFormatted }}
+        </td>
+        <td class="data-value">{{ line.volumeFormatted }}</td>
+        <td
+          class="data-value difference-value"
+          [class.positive]="!line.diffVolumeIsNegative"
+          [class.negative]="line.diffVolumeIsNegative">
+          {{ line.diffVolumeFormatted }}
+        </td>
+      </tr>
+    }
   </tbody>
 </table>

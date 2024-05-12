@@ -2,15 +2,16 @@
   "app": {
     "title": "Dammings of Catalonia"
   },
+  "common": {
+    "date": "date",
+    "back": "back",
+    "cancel": "cancel",
+    "loading": "Loading"
+  },  
   "damm-info": {
     "damm": "damm",
     "dammed-watter": "dammed water",
     "see-last-seven-days-information": "see last 7 days information"
-  },
-  "common": {
-    "date": "date",
-    "back": "back",
-    "cancel": "cancel"
   },
   "historic-table": {
     "aria-label": "Historic data table",

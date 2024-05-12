@@ -3,21 +3,24 @@
     {{ 'language-selector.choose-language' | translate }}
   </div>
   <div class="dammings-dialog-language-selector__buttons">
-    <div
-      *ngFor="let button of config?.data?.langs"
-      class="dammings-dialog-language-selector__button"
-      (click)="changeLang(button.code)">
-      <img
-        [attr.src]="button.icon"
-        onerror="this.src='assets/images/languages/default.png'"
-        alt="button.code">
-      {{ button.lang | translate }}
-    </div>
+    @for (button of config.data?.langs; track button) {
+      <div
+        class="dammings-dialog-language-selector__button"
+        (click)="changeLang(button.code)"
+        (keyPress)="null">
+        <img
+          [attr.src]="button.icon"
+          onerror="this.src='assets/images/languages/default.png'"
+          alt="button.code">
+        {{ button.lang | translate }}
+      </div>
+    }
   </div>
   <div class="dammings-dialog-language-selector__footer">
     <div
       class="dammings-dialog-language-selector__button"
-      (click)="onCancel()">
+      (click)="onCancel()"
+      (keyPress)="null">
       {{ 'common.cancel' | translate | firstuppercase }}
     </div>
   </div>

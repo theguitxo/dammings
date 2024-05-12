@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from "@angular/core
 import { TranslateModule } from "@ngx-translate/core";
 import { FirstUpperCasePipe } from "../../pipes/first-uppercase.pipe";
 import { DammingsInfo, HistoricDataTableRow } from "../../app.models";
-import { CommonModule } from "@angular/common";
 
 @Component({
   selector: 'dammings-historic-table',
@@ -11,7 +10,6 @@ import { CommonModule } from "@angular/common";
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    CommonModule,
     TranslateModule,
     FirstUpperCasePipe
   ]

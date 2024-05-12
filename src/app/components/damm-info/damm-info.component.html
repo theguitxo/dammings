@@ -9,12 +9,11 @@
   </div>
   <div class="dammings-damm-info__more-button">
     <button
+      type="button"
       class="dammings__button dammings__button--green"
       (click)="showDetail()">
       {{ 'damm-info.see-last-seven-days-information' | translate }}
     </button>
   </div>
-  <dammings-pie-chart
-    [percentage]="percentage">
-  </dammings-pie-chart>
+  <dammings-pie-chart [percentage]="percentage" />
 </div>

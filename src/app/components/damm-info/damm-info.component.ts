@@ -1,4 +1,3 @@
-import { CommonModule } from "@angular/common";
 import { ChangeDetectionStrategy, Component, Input, OnInit, inject } from "@angular/core";
 import { DammingsInfo } from "../../app.models";
 import { PieChartComponent } from "../pie-chart/pie-chart.component";
@@ -13,7 +12,6 @@ import { FirstUpperCasePipe } from "../../pipes/first-uppercase.pipe";
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    CommonModule,
     PieChartComponent,
     TranslateModule,
     FirstUpperCasePipe

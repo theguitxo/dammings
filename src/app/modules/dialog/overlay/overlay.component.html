@@ -1,7 +1,10 @@
 <div
   class="dammings-overlay__wrapper"
-  (click)="onOverlayClicked($event)">
-  <div (click)="onDialogClicked($event)">
+  (click)="onOverlayClicked($event)"
+  (keyPress)="null">
+  <div
+    (click)="onDialogClicked($event)"
+    (keyPress)="null">
     <ng-template appInsertion></ng-template>
   </div>
 </div>

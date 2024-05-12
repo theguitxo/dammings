@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { DammingsInfo, HorizontalLine, HorizontalLinesValues, ValueLine, ValuePoint, ValueTooltip, VerticalLine } from '../../app.models';
-import { CommonModule } from '@angular/common';
 
 const CHART_HEIGHT = 40;
 const CHART_INIT_X = 10;
@@ -15,8 +14,7 @@ const Y_LABELS_POS_Y_TRANSLATION = .5;
   templateUrl: './historic-chart.component.html',
   styleUrls: ['./historic-chart.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [CommonModule]
+  standalone: true
 })
 export class HistoricChartComponent implements OnInit {
 
@@ -43,6 +41,7 @@ export class HistoricChartComponent implements OnInit {
 
   showTooltip(i: number): void {
     this.valueTooltips[i].show = true;
+
   }
   
   hideTooltip(i: number): void {

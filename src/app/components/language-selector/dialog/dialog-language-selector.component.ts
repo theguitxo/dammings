@@ -1,9 +1,8 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { DialogConfig } from '../../../modules/dialog/dialog-config';
 import { DialogRef } from '../../../modules/dialog/dialog-ref';
 import { DialogLanguageDialogData } from '../../../app.models';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { FirstUpperCasePipe } from '../../../pipes/first-uppercase.pipe';
 
 @Component({
@@ -13,7 +12,6 @@ import { FirstUpperCasePipe } from '../../../pipes/first-uppercase.pipe';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    CommonModule,
     TranslateModule,
     FirstUpperCasePipe
   ]

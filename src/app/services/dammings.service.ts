@@ -1,6 +1,6 @@
 import { Injectable, inject } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, Subject, catchError, last, of, take } from "rxjs";
+import { BehaviorSubject, Observable, Subject, catchError, of, take } from "rxjs";
 import { DammingsInfo } from "../app.models";
 
 @Injectable()

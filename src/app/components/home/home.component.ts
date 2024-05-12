@@ -1,15 +1,13 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit, Signal, computed, inject } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Injector, OnInit, Signal, computed, inject } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { DammingsInfo } from "../../app.models";
 import { DammingsService } from "../../services/dammings.service";
 import { ErrorsService } from "../../services/errors.service";
 import { LoadingService } from "../../services/loading.service";
-import { CommonModule } from "@angular/common";
 import { LoadingSpinnerComponent } from "../loading-spinner/loading-spinner.component";
 import { ErrorsInfoComponent } from "../errors-info/errors-info.component";
 import { DammInfoComponent } from "../damm-info/damm-info.component";
 import { HistoricChartComponent } from "../historic-chart/historic-chart.component";
-import { isMobileDevice } from "../../app.utils";
 
 @Component({
   selector: 'dammmings-home',
@@ -18,7 +16,6 @@ import { isMobileDevice } from "../../app.utils";
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    CommonModule,
     LoadingSpinnerComponent,
     ErrorsInfoComponent,
     DammInfoComponent,
@@ -37,10 +34,6 @@ export class HomeComponent implements OnInit {
   showData!: Signal<boolean>;
 
   private injector = inject(Injector);
-
-  constructor(
-    private readonly cd: ChangeDetectorRef
-  ) {}
 
   ngOnInit(): void {
     this.dataLoaded = toSignal(this.dammingsService.dataLoaded, {

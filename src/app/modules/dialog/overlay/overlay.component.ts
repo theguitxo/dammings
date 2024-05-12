@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ComponentRef, OnDestroy, OnInit, Renderer2, Type, ViewChild } from "@angular/core";
+import { AfterViewInit, ChangeDetectorRef, Component, ComponentRef, inject, OnDestroy, OnInit, Renderer2, Type, ViewChild } from "@angular/core";
 import { Subject } from "rxjs";
 import { InsertionDirective } from "../insertion.directive";
 import { DialogRef } from "../dialog-ref";
@@ -10,16 +10,14 @@ import { DialogConfig } from "../dialog-config";
   styleUrls: ['./overlay.component.scss']
 })
 export class OverlayComponent implements OnInit, OnDestroy, AfterViewInit {
+  private readonly renderer = inject(Renderer2);
+  private readonly cd = inject(ChangeDetectorRef);
+  private readonly dialogRef = inject(DialogRef);
+
   componentRef!: ComponentRef<any>;
   childComponentType!: Type<any>;
 
   @ViewChild(InsertionDirective) insertionPoint!: InsertionDirective;
-
-  constructor(
-    private readonly renderer: Renderer2,
-    private readonly cd: ChangeDetectorRef,
-    private readonly dialogRef: DialogRef
-  ) {}
 
   ngOnInit(): void {
     this.renderer.setStyle(document.body, 'overflow', 'hidden');

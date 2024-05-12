@@ -4,18 +4,19 @@
   </div>
   <div
     class="dammings__button dammings__button--green"
-    (click)="goBack()">
+    (click)="goBack()"
+    (keyPress)="null">
     {{ 'common.back' | translate | uppercase }}
   </div>
 </div>
-<dammings-errors-info></dammings-errors-info>
-<div
-  *ngIf="showHistoricData()"
-  class="dammings-detail__data-wrapper">
-  <div class="dammings-detail__data-item">
-    <dammings-historic-chart [info]="stationsData()"></dammings-historic-chart>
+<dammings-errors-info />
+@if (showHistoricData()) {
+  <div class="dammings-detail__data-wrapper">
+    <div class="dammings-detail__data-item">
+      <dammings-historic-chart [info]="stationsData()" />
+    </div>
+    <div class="dammings-detail__data-item">
+      <dammings-historic-table [info]="stationsData()" />
+    </div>
   </div>
-  <div class="dammings-detail__data-item">
-    <dammings-historic-table [info]="stationsData()"></dammings-historic-table>
-  </div>
-</div>
+}

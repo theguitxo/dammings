@@ -1,35 +1,41 @@
 <div
   class="dammings-language-selector__wrapper"
   [class.selected]="showingSelected">
-  <div
-    *ngIf="showArrows"
-    class="arrow">
-    <div
-      *ngIf="showPrevArrow"
-      class="left"
-      (click)="moveLang(1)">
+  @if (showArrows) {
+    <div class="arrow">
+      @if (showPrevArrow) {
+        <div
+          class="left"
+          (click)="moveLang(1)"
+          (keyPress)="null">
+        </div>
+      }
     </div>
-  </div>
+  }
   <div class="dammings-language-selector__list">
-    <div
-      #button
-      *ngFor="let item of langsItems"
-      class="dammings-language-selector__button"
-      (click)="selectLang(item)">
-      <img
-        [attr.src]="item.icon"
-        onerror="this.src='assets/images/languages/default.png'"
-        alt="item.code">
-      <span>{{ item.lang | translate }}</span>
-    </div>
+    @for(item of langsItems; track item) {
+      <div
+        #button
+        class="dammings-language-selector__button"
+        (click)="selectLang(item)"
+        (keyPress)="null">
+        <img
+          [attr.src]="item.icon"
+          onerror="this.src='assets/images/languages/default.png'"
+          alt="item.code">
+        <span>{{ item.lang | translate }}</span>
+      </div>
+    }
   </div>
-  <div
-    *ngIf="showArrows"
-    class="arrow">
-    <div
-      *ngIf="showNextArrow"
-      class="right"
-      (click)="moveLang(-1)">
+  @if (showArrows) {
+    <div class="arrow">
+      @if (showNextArrow) {
+      <div
+        class="right"
+        (click)="moveLang(-1)"
+        (keyPress)="null">
+      </div>
+      }
     </div>
-  </div>
+  }
 </div>

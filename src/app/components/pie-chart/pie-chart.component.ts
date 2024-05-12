@@ -1,5 +1,4 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, Renderer2, ViewChild, inject } from "@angular/core";
-import { DammingsInfo } from "../../app.models";
 
 @Component({
   selector: 'dammings-pie-chart',
@@ -11,7 +10,6 @@ import { DammingsInfo } from "../../app.models";
 export class PieChartComponent implements AfterViewInit {
   @ViewChild('backgroundContainer') backgroundContainer!: ElementRef;
   @ViewChild('backgroundChart') backgroundChart!: ElementRef;
-
   @ViewChild('percentContainer') percentContainer!: ElementRef;
   @ViewChild('percentChart') percentChart!: ElementRef;
 
@@ -25,7 +23,6 @@ export class PieChartComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.setGraphsSizes(this.backgroundContainer);
     this.setGraphsSizes(this.percentContainer);
-
     this.setGraphPercent();
   }
 

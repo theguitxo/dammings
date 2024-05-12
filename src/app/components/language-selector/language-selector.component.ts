@@ -6,14 +6,11 @@ import {
 } from "@angular/core";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { DialogLanguageDialogData, LANGUAGES, LangItem } from "../../app.models";
-import { CommonModule } from "@angular/common";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { isMobileDevice } from "../../app.utils";
 import { DialogService } from "../../modules/dialog/dialog.service";
 import { DialogLanguageSelectorComponent } from "./dialog/dialog-language-selector.component";
 import { take } from "rxjs/operators";
-
-
 
 const LANG_ICON_PATH = 'assets/images/languages/';
 
@@ -24,7 +21,6 @@ const LANG_ICON_PATH = 'assets/images/languages/';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    CommonModule,
     TranslateModule,
     DialogLanguageSelectorComponent
   ]

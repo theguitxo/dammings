@@ -1,10 +1,9 @@
-<dammings-loading-spinner></dammings-loading-spinner>
-<dammings-errors-info></dammings-errors-info>
-<div
-  *ngIf="showData()"
-  class="dammings-chart-table__wrapper">
-  <dammings-damm-info
-    *ngFor="let station of stationsData()"
-    [dammingInfo]="station">
-  </dammings-damm-info>
-</div>
+<dammings-loading-spinner />
+<dammings-errors-info />
+@if(showData()) {
+  <div class="dammings-chart-table__wrapper">
+  @for(station of stationsData(); track station) {
+    <dammings-damm-info [dammingInfo]="station" />
+  }
+  </div>
+}

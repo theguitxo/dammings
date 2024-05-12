@@ -1,7 +1,7 @@
-import { CommonModule } from "@angular/common";
 import { ChangeDetectionStrategy, Component, Signal, inject } from "@angular/core";
 import { LoadingService } from "../../services/loading.service";
 import { toSignal } from "@angular/core/rxjs-interop";
+import { TranslateModule } from "@ngx-translate/core";
 
 @Component({
   selector: 'dammings-loading-spinner',
@@ -9,7 +9,9 @@ import { toSignal } from "@angular/core/rxjs-interop";
   styleUrls: ['./loading-spinner.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule]
+  imports: [
+    TranslateModule
+  ]
 })
 export class LoadingSpinnerComponent {
   loadingService = inject(LoadingService);

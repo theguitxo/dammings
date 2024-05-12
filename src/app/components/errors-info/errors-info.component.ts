@@ -1,4 +1,3 @@
-import { CommonModule } from "@angular/common";
 import { ChangeDetectionStrategy, Component, Signal, inject } from "@angular/core";
 import { ErrorsService } from "../../services/errors.service";
 import { toSignal } from "@angular/core/rxjs-interop";
@@ -9,8 +8,7 @@ import { ErrorData } from "../../app.models";
   templateUrl: './errors-info.component.html',
   styleUrls: ['./errors-info.component.scss'],
   standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ErrorsInfoComponent {
   errorsService = inject(ErrorsService);
