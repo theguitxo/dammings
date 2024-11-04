@@ -1,7 +1,13 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from "@angular/core";
-import { TranslateModule } from "@ngx-translate/core";
-import { FirstUpperCasePipe } from "../../pipes/first-uppercase.pipe";
-import { DammingsInfo, HistoricDataTableRow } from "../../app.models";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { DammingsInfo, HistoricDataTableRow } from '../../app.models';
+import { FirstUpperCasePipe } from '../../pipes/first-uppercase.pipe';
+import { percentageCorrector } from '../../utils/percentage';
 
 @Component({
   selector: 'dammings-historic-table',
@@ -9,35 +15,38 @@ import { DammingsInfo, HistoricDataTableRow } from "../../app.models";
   styleUrls: ['./historic-table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [
-    TranslateModule,
-    FirstUpperCasePipe
-  ]
+  imports: [TranslateModule, FirstUpperCasePipe],
 })
 export class HistoricTableComponent implements OnInit {
-
   @Input() info!: DammingsInfo[];
 
   tableData!: HistoricDataTableRow[];
 
   ngOnInit(): void {
-      this.setTableData();
+    this.setTableData();
   }
 
   private setTableData() {
     const tableData = this.info.map((v, i) => {
       const previous = this.info[i - 1] ?? null;
-      const percentage = (+v.percentatge_volum_embassat);
+      const percentage = percentageCorrector(+v.percentatge_volum_embassat);
       const percentageFormatted = percentage.toFixed(2);
-      const diffPercentage = previous ? (+v.percentatge_volum_embassat - +previous.percentatge_volum_embassat): null;
-      const diffPercentageFormatted = diffPercentage !== null ? diffPercentage.toFixed(2) : '';
+      const diffPercentage = previous
+        ? percentageCorrector(+v.percentatge_volum_embassat) -
+          percentageCorrector(+previous.percentatge_volum_embassat)
+        : null;
+      const diffPercentageFormatted =
+        diffPercentage !== null ? diffPercentage.toFixed(2) : '';
       const volume = +v.volum_embassat;
       const volumeFormatted = volume.toFixed(2);
-      const diffVolume = previous ? (+v.volum_embassat - +previous.volum_embassat) : null;
-      const diffVolumeFormatted = diffVolume !== null ? diffVolume.toFixed(2) : '';
+      const diffVolume = previous
+        ? +v.volum_embassat - +previous.volum_embassat
+        : null;
+      const diffVolumeFormatted =
+        diffVolume !== null ? diffVolume.toFixed(2) : '';
 
       return {
-        date: (new Date(v.dia)).toLocaleDateString(),
+        date: new Date(v.dia).toLocaleDateString(),
         percentage,
         percentageFormatted,
         diffPercentage,
@@ -47,11 +56,10 @@ export class HistoricTableComponent implements OnInit {
         volumeFormatted,
         diffVolume,
         diffVolumeFormatted,
-        diffVolumeIsNegative: !!(diffVolume && +diffVolume < 0)
-      }
+        diffVolumeIsNegative: !!(diffVolume && +diffVolume < 0),
+      };
     });
 
     this.tableData = tableData;
   }
-
 }

@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { DammingsInfo } from '../../app.models';
 import { FirstUpperCasePipe } from '../../pipes/first-uppercase.pipe';
+import { percentageCorrector } from '../../utils/percentage';
 import { PieChartComponent } from '../pie-chart/pie-chart.component';
 
 @Component({
@@ -31,12 +32,7 @@ export class DammInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.percentage = +this.dammingInfo?.percentatge_volum_embassat;
-    let percentageValue = this.percentage;
-    if (percentageValue > 100) {
-      percentageValue = 100;
-    } else if (percentageValue < 0) {
-      percentageValue = 0;
-    }
+    const percentageValue = percentageCorrector(this.percentage);
     this.percentageFormatted = `${percentageValue.toLocaleString()} %`;
     this.dateFormatted = new Date(this.dammingInfo.dia).toLocaleDateString();
   }

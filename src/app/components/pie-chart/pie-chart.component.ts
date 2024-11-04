@@ -8,6 +8,7 @@ import {
   ViewChild,
   inject,
 } from '@angular/core';
+import { percentageCorrector } from '../../utils/percentage';
 
 @Component({
   selector: 'dammings-pie-chart',
@@ -37,7 +38,7 @@ export class PieChartComponent implements AfterViewInit {
 
   private setGraphsSizes(element: ElementRef): void {
     const boundings = element?.nativeElement?.getBoundingClientRect();
-    if (!!boundings) {
+    if (boundings) {
       this.renderer.setStyle(
         element?.nativeElement,
         'height',
@@ -49,12 +50,7 @@ export class PieChartComponent implements AfterViewInit {
   private setGraphPercent(): void {
     const boundings = this.percentChart?.nativeElement?.getBoundingClientRect();
     if (boundings) {
-      let percentageValue = this.percentage;
-      if (percentageValue > 100) {
-        percentageValue = 100;
-      } else if (percentageValue < 0) {
-        percentageValue = 0;
-      }
+      const percentageValue = percentageCorrector(this.percentage);
       const diameter = boundings.width;
       const perimeter = diameter * Math.PI;
       const value = (perimeter * percentageValue) / 100;
