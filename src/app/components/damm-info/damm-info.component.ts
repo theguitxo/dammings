@@ -1,9 +1,15 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, inject } from "@angular/core";
-import { DammingsInfo } from "../../app.models";
-import { PieChartComponent } from "../pie-chart/pie-chart.component";
-import { Router } from "@angular/router";
-import { TranslateModule } from "@ngx-translate/core";
-import { FirstUpperCasePipe } from "../../pipes/first-uppercase.pipe";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+  inject,
+} from '@angular/core';
+import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { DammingsInfo } from '../../app.models';
+import { FirstUpperCasePipe } from '../../pipes/first-uppercase.pipe';
+import { PieChartComponent } from '../pie-chart/pie-chart.component';
 
 @Component({
   selector: 'dammings-damm-info',
@@ -11,14 +17,9 @@ import { FirstUpperCasePipe } from "../../pipes/first-uppercase.pipe";
   styleUrls: ['./damm-info.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    PieChartComponent,
-    TranslateModule,
-    FirstUpperCasePipe
-  ]
+  imports: [PieChartComponent, TranslateModule, FirstUpperCasePipe],
 })
 export class DammInfoComponent implements OnInit {
-  
   @Input() dammingInfo!: DammingsInfo;
 
   percentage!: number;
@@ -30,8 +31,14 @@ export class DammInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.percentage = +this.dammingInfo?.percentatge_volum_embassat;
-    this.percentageFormatted = `${this.percentage.toLocaleString()} %`;
-    this.dateFormatted = (new Date(this.dammingInfo.dia)).toLocaleDateString();
+    let percentageValue = this.percentage;
+    if (percentageValue > 100) {
+      percentageValue = 100;
+    } else if (percentageValue < 0) {
+      percentageValue = 0;
+    }
+    this.percentageFormatted = `${percentageValue.toLocaleString()} %`;
+    this.dateFormatted = new Date(this.dammingInfo.dia).toLocaleDateString();
   }
 
   showDetail(): void {

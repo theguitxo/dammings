@@ -1,11 +1,20 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, Renderer2, ViewChild, inject } from "@angular/core";
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  Input,
+  Renderer2,
+  ViewChild,
+  inject,
+} from '@angular/core';
 
 @Component({
   selector: 'dammings-pie-chart',
   templateUrl: './pie-chart.component.html',
   styleUrls: ['./pie-chart.component.scss'],
   standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PieChartComponent implements AfterViewInit {
   @ViewChild('backgroundContainer') backgroundContainer!: ElementRef;
@@ -29,19 +38,37 @@ export class PieChartComponent implements AfterViewInit {
   private setGraphsSizes(element: ElementRef): void {
     const boundings = element?.nativeElement?.getBoundingClientRect();
     if (!!boundings) {
-      this.renderer.setStyle(element?.nativeElement, 'height', `${boundings.width}px`);
+      this.renderer.setStyle(
+        element?.nativeElement,
+        'height',
+        `${boundings.width}px`
+      );
     }
   }
 
   private setGraphPercent(): void {
     const boundings = this.percentChart?.nativeElement?.getBoundingClientRect();
     if (boundings) {
+      let percentageValue = this.percentage;
+      if (percentageValue > 100) {
+        percentageValue = 100;
+      } else if (percentageValue < 0) {
+        percentageValue = 0;
+      }
       const diameter = boundings.width;
       const perimeter = diameter * Math.PI;
-      const value = (perimeter * this.percentage) / 100;
+      const value = (perimeter * percentageValue) / 100;
 
-      this.renderer.setStyle(this.percentChart?.nativeElement, 'strokeDashoffset', `${(value / 2)}`);
-      this.renderer.setStyle(this.percentChart?.nativeElement, 'strokeDasharray', `${value} ${perimeter - value}`);
+      this.renderer.setStyle(
+        this.percentChart?.nativeElement,
+        'strokeDashoffset',
+        `${value / 2}`
+      );
+      this.renderer.setStyle(
+        this.percentChart?.nativeElement,
+        'strokeDasharray',
+        `${value} ${perimeter - value}`
+      );
     }
   }
 }
