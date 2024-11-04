@@ -1,16 +1,26 @@
 import {
-  AfterViewInit, ChangeDetectionStrategy,
-  Component, DestroyRef, ElementRef,
-  OnInit, QueryList, Renderer2,
-  ViewChildren, inject
-} from "@angular/core";
-import { TranslateModule, TranslateService } from "@ngx-translate/core";
-import { DialogLanguageDialogData, LANGUAGES, LangItem } from "../../app.models";
-import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { isMobileDevice } from "../../app.utils";
-import { DialogService } from "../../modules/dialog/dialog.service";
-import { DialogLanguageSelectorComponent } from "./dialog/dialog-language-selector.component";
-import { take } from "rxjs/operators";
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  ElementRef,
+  OnInit,
+  QueryList,
+  Renderer2,
+  ViewChildren,
+  inject,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { take } from 'rxjs/operators';
+import {
+  DialogLanguageDialogData,
+  LANGUAGES,
+  LangItem,
+} from '../../app.models';
+import { isMobileDevice } from '../../app.utils';
+import { DialogService } from '../../modules/dialog/dialog.service';
+import { DialogLanguageSelectorComponent } from './dialog/dialog-language-selector.component';
 
 const LANG_ICON_PATH = 'assets/images/languages/';
 
@@ -20,10 +30,7 @@ const LANG_ICON_PATH = 'assets/images/languages/';
   styleUrls: ['./language-selector.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    TranslateModule,
-    DialogLanguageSelectorComponent
-  ]
+  imports: [TranslateModule, DialogLanguageSelectorComponent],
 })
 export class LanguageSelectorComponent implements OnInit, AfterViewInit {
   @ViewChildren('button') buttons!: QueryList<ElementRef>;
@@ -35,20 +42,20 @@ export class LanguageSelectorComponent implements OnInit, AfterViewInit {
       code: LANGUAGES.ENGLISH,
       icon: `${LANG_ICON_PATH}english.png`,
       lang: 'language-selector.english',
-      selected: false
+      selected: false,
     },
     {
       code: LANGUAGES.SPANISH,
       icon: `${LANG_ICON_PATH}spanish.png`,
       lang: 'language-selector.spanish',
-      selected: false
+      selected: false,
     },
     {
       code: LANGUAGES.CATALAN,
       icon: `${LANG_ICON_PATH}catalan.png`,
       lang: 'language-selector.catalan',
-      selected: false
-    }
+      selected: false,
+    },
   ];
   buttonsList!: ElementRef[];
   actualButtonIndex!: number;
@@ -58,9 +65,9 @@ export class LanguageSelectorComponent implements OnInit, AfterViewInit {
   showingSelected!: boolean;
 
   constructor(
-    private translate: TranslateService,
-    private renderer: Renderer2,
-    private dialog: DialogService
+    private readonly translate: TranslateService,
+    private readonly renderer: Renderer2,
+    private readonly dialog: DialogService
   ) {}
 
   ngOnInit(): void {
@@ -71,7 +78,8 @@ export class LanguageSelectorComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.buttonsList = Array.from(this.buttons);
-    this.actualButtonIndex = this.langsItems?.findIndex(item => item.selected) || 0;
+    this.actualButtonIndex =
+      this.langsItems?.findIndex((item) => item.selected) || 0;
     this.setShowArrowValues();
     this.updateButtonsPosition();
     this.setShowSelected();
@@ -95,18 +103,16 @@ export class LanguageSelectorComponent implements OnInit, AfterViewInit {
 
   private openLanguageDialog(): void {
     const dialogData: DialogLanguageDialogData = {
-      langs: this.langsItems.filter(lang => !lang.selected)
+      langs: this.langsItems.filter((lang) => !lang.selected),
     };
 
     const dialogRef = this.dialog.open(DialogLanguageSelectorComponent, {
-      data: dialogData
+      data: dialogData,
     });
-    
-    dialogRef.afterClosed
-      .pipe(take(1))
-      .subscribe((lang: string) => {
-        this.translate.use(lang);
-      });
+
+    dialogRef.afterClosed.pipe(take(1)).subscribe((lang: string) => {
+      this.translate.use(lang);
+    });
   }
 
   private initOnLangChangeSubscription(): void {
@@ -115,7 +121,8 @@ export class LanguageSelectorComponent implements OnInit, AfterViewInit {
       .subscribe(() => {
         this.setSelected();
         if (isMobileDevice()) {
-          this.actualButtonIndex = this.langsItems.findIndex(item => item.selected) * -1;
+          this.actualButtonIndex =
+            this.langsItems.findIndex((item) => item.selected) * -1;
           this.updateButtonsPosition();
         }
         this.setShowSelected();
@@ -123,21 +130,32 @@ export class LanguageSelectorComponent implements OnInit, AfterViewInit {
   }
 
   private setSelected(): void {
-    this.langsItems?.forEach(item => item.selected = item.code === this.translate.currentLang);
+    this.langsItems?.forEach(
+      (item) => (item.selected = item.code === this.translate.currentLang)
+    );
   }
 
   private setShowSelected(): void {
-    const indexSelected = this.langsItems?.findIndex(item => item.selected) || 0;
+    const indexSelected =
+      this.langsItems?.findIndex((item) => item.selected) || 0;
     this.showingSelected = Math.abs(this.actualButtonIndex) === indexSelected;
   }
 
   private updateButtonsPosition(): void {
     const newLeft = this.actualButtonIndex * 100;
-    this.buttonsList?.forEach(item => this.renderer.setStyle(item.nativeElement, 'left', `${newLeft}%`));
+    this.buttonsList?.forEach((item) =>
+      this.renderer.setStyle(item.nativeElement, 'left', `${newLeft}%`)
+    );
   }
 
   private setShowArrowValues(): void {
     this.showPrevArrow = Math.abs(this.actualButtonIndex) > 0;
-    this.showNextArrow = Math.abs(this.actualButtonIndex) < this.buttonsList.length - 1;
+    this.showNextArrow =
+      Math.abs(this.actualButtonIndex) < this.buttonsList.length - 1;
+  }
+
+  changeSource(event: Event): void {
+    (event.target as HTMLImageElement).src =
+      'assets/images/languages/default.png';
   }
 }

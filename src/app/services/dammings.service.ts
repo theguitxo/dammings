@@ -12,22 +12,21 @@ import { DammingsInfo } from '../app.models';
 
 @Injectable()
 export class DammingsService {
-  private dammingsInfoUrl =
+  private readonly dammingsInfoUrl =
     'https://analisi.transparenciacatalunya.cat/resource/gn9e-3qhr.json';
-  private http = inject(HttpClient);
+  private readonly http = inject(HttpClient);
 
-  private _dataLoaded: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
-    false
-  );
-  private _errorLoading: BehaviorSubject<boolean> =
+  private readonly _dataLoaded: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(false);
+  private readonly _errorLoading: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(false);
 
   private _stationNames!: string[];
   private _totalStations!: number;
 
-  private _lastAllStationData: BehaviorSubject<DammingsInfo[]> =
+  private readonly _lastAllStationData: BehaviorSubject<DammingsInfo[]> =
     new BehaviorSubject<DammingsInfo[]>([]);
-  private _lastSevenDaysData: Subject<DammingsInfo[]> = new Subject<
+  private readonly _lastSevenDaysData: Subject<DammingsInfo[]> = new Subject<
     DammingsInfo[]
   >();
 
@@ -154,7 +153,7 @@ export class DammingsService {
 
     return result.length <= 0
       ? []
-      : result.sort((a, b) => (a!.estaci < b!.estaci ? -1 : 1));
+      : result.sort((a, b) => (a && b && a.estaci < b.estaci ? -1 : 1));
   }
 
   private errorLoadingData(): Observable<DammingsInfo[]> {
@@ -170,7 +169,7 @@ export class DammingsService {
   private setStationsID(): void {
     const iDlist = new Map<string, string>();
     this.stationNames.forEach((station: string) =>
-      iDlist.set(station, Math.random().toString(36).substring(2))
+      iDlist.set(station, window.crypto.randomUUID())
     );
     this._info.forEach(
       (info: DammingsInfo) => (info.id = iDlist.get(info.estaci))

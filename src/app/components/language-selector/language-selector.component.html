@@ -1,41 +1,36 @@
 <div
   class="dammings-language-selector__wrapper"
-  [class.selected]="showingSelected">
+  [class.selected]="showingSelected"
+>
   @if (showArrows) {
-    <div class="arrow">
-      @if (showPrevArrow) {
-        <div
-          class="left"
-          (click)="moveLang(1)"
-          (keyPress)="null">
-        </div>
-      }
-    </div>
+  <div class="arrow">
+    @if (showPrevArrow) {
+    <div class="left" (click)="moveLang(1)" (keyPress)="(null)"></div>
+    }
+  </div>
   }
   <div class="dammings-language-selector__list">
     @for(item of langsItems; track item) {
-      <div
-        #button
-        class="dammings-language-selector__button"
-        (click)="selectLang(item)"
-        (keyPress)="null">
-        <img
-          [attr.src]="item.icon"
-          onerror="this.src='assets/images/languages/default.png'"
-          alt="item.code">
-        <span>{{ item.lang | translate }}</span>
-      </div>
+    <div
+      #button
+      class="dammings-language-selector__button"
+      (click)="selectLang(item)"
+      (keyPress)="(null)"
+    >
+      <img
+        [attr.src]="item.icon"
+        (error)="changeSource($event)"
+        alt="item.code"
+      />
+      <span>{{ item.lang | translate }}</span>
+    </div>
     }
   </div>
   @if (showArrows) {
-    <div class="arrow">
-      @if (showNextArrow) {
-      <div
-        class="right"
-        (click)="moveLang(-1)"
-        (keyPress)="null">
-      </div>
-      }
-    </div>
+  <div class="arrow">
+    @if (showNextArrow) {
+    <div class="right" (click)="moveLang(-1)" (keyPress)="(null)"></div>
+    }
+  </div>
   }
 </div>

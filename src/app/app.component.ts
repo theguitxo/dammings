@@ -5,7 +5,7 @@ import { LANGUAGES } from './app.models';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   languages = new Map()
@@ -13,7 +13,7 @@ export class AppComponent {
     .set('SPANISH', LANGUAGES.SPANISH)
     .set('CATALAN', LANGUAGES.CATALAN);
 
-  constructor(private translate: TranslateService) {
+  constructor(private readonly translate: TranslateService) {
     translate.setDefaultLang(LANGUAGES.ENGLISH);
     translate.use(LANGUAGES.ENGLISH);
   }

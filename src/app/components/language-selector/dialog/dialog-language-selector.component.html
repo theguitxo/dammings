@@ -1,27 +1,30 @@
 <div class="dammings-dialog-language-selector__container">
   <div class="dammings-dialog-language-selector__title">
-    {{ 'language-selector.choose-language' | translate }}
+    {{ "language-selector.choose-language" | translate }}
   </div>
   <div class="dammings-dialog-language-selector__buttons">
     @for (button of config.data?.langs; track button) {
-      <div
-        class="dammings-dialog-language-selector__button"
-        (click)="changeLang(button.code)"
-        (keyPress)="null">
-        <img
-          [attr.src]="button.icon"
-          onerror="this.src='assets/images/languages/default.png'"
-          alt="button.code">
-        {{ button.lang | translate }}
-      </div>
+    <div
+      class="dammings-dialog-language-selector__button"
+      (click)="changeLang(button.code)"
+      (keyPress)="(null)"
+    >
+      <img
+        [attr.src]="button.icon"
+        (error)="changeSource($event)"
+        alt="button.code"
+      />
+      {{ button.lang | translate }}
+    </div>
     }
   </div>
   <div class="dammings-dialog-language-selector__footer">
     <div
       class="dammings-dialog-language-selector__button"
       (click)="onCancel()"
-      (keyPress)="null">
-      {{ 'common.cancel' | translate | firstuppercase }}
+      (keyPress)="(null)"
+    >
+      {{ "common.cancel" | translate | firstuppercase }}
     </div>
   </div>
 </div>

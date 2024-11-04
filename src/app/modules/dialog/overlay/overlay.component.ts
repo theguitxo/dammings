@@ -1,13 +1,22 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ComponentRef, inject, OnDestroy, OnInit, Renderer2, Type, ViewChild } from "@angular/core";
-import { Subject } from "rxjs";
-import { InsertionDirective } from "../insertion.directive";
-import { DialogRef } from "../dialog-ref";
-import { DialogConfig } from "../dialog-config";
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ComponentRef,
+  inject,
+  OnDestroy,
+  OnInit,
+  Renderer2,
+  Type,
+  ViewChild,
+} from '@angular/core';
+import { DialogRef } from '../dialog-ref';
+import { InsertionDirective } from '../insertion.directive';
 
 @Component({
   selector: 'dammings-overlay',
   templateUrl: './overlay.component.html',
-  styleUrls: ['./overlay.component.scss']
+  styleUrls: ['./overlay.component.scss'],
 })
 export class OverlayComponent implements OnInit, OnDestroy, AfterViewInit {
   private readonly renderer = inject(Renderer2);

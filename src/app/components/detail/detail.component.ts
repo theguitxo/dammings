@@ -1,15 +1,27 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DestroyRef, Injector, Input, OnInit, Signal, computed, effect, inject } from '@angular/core';
-import { DammingsService } from '../../services/dammings.service';
-import { Router } from '@angular/router';
-import { ErrorsService } from '../../services/errors.service';
+import { CommonModule } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  DestroyRef,
+  Injector,
+  Input,
+  OnInit,
+  Signal,
+  computed,
+  effect,
+  inject,
+} from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { DammingsInfo } from '../../app.models';
+import { FirstUpperCasePipe } from '../../pipes/first-uppercase.pipe';
+import { DammingsService } from '../../services/dammings.service';
+import { ErrorsService } from '../../services/errors.service';
 import { ErrorsInfoComponent } from '../errors-info/errors-info.component';
 import { HistoricChartComponent } from '../historic-chart/historic-chart.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { FirstUpperCasePipe } from '../../pipes/first-uppercase.pipe';
 import { HistoricTableComponent } from '../historic-table/historic-table.component';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'dammings-detail',
@@ -23,23 +35,23 @@ import { CommonModule } from '@angular/common';
     HistoricChartComponent,
     HistoricTableComponent,
     TranslateModule,
-    FirstUpperCasePipe
-  ]
+    FirstUpperCasePipe,
+  ],
 })
 export class DetailComponent implements OnInit {
   @Input() id!: string;
 
-  private injector = inject(Injector);
-  private destroyRef = inject(DestroyRef);
-  private router = inject(Router);
-  private dammingsService = inject(DammingsService);
-  private cd = inject(ChangeDetectorRef);
+  private readonly injector = inject(Injector);
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly router = inject(Router);
+  private readonly dammingsService = inject(DammingsService);
+  private readonly cd = inject(ChangeDetectorRef);
 
   errorsService = inject(ErrorsService);
 
   showHistoricData!: Signal<boolean>;
   stationsData!: Signal<DammingsInfo[]>;
-  stationName!: string
+  stationName!: string;
 
   ngOnInit(): void {
     this.setSignals();
@@ -52,29 +64,34 @@ export class DetailComponent implements OnInit {
   }
 
   private setSignals(): void {
-    effect(() => {
-      if(this.stationsData()?.length) {
-        this.stationName = this.stationsData()[0].estaci;
-        this.cd.markForCheck();
+    effect(
+      () => {
+        if (this.stationsData()?.length) {
+          this.stationName = this.stationsData()[0].estaci;
+          this.cd.markForCheck();
+        }
+      },
+      {
+        injector: this.injector,
       }
-    }, {
-      injector: this.injector
-    });
+    );
 
     this.stationsData = toSignal(this.dammingsService.lastSevenDaysData, {
       initialValue: [],
-      injector: this.injector
+      injector: this.injector,
     });
 
     this.showHistoricData = computed(() => this.stationsData().length > 0);
   }
 
   private checkLoadedData(): void {
-    this.dammingsService.dataLoaded.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((value: boolean) => {
-      if (!value) {
-        this.router.navigate(['/']);
-      }
-    });
+    this.dammingsService.dataLoaded
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((value: boolean) => {
+        if (!value) {
+          this.router.navigate(['/']);
+        }
+      });
   }
 
   private checkValidID(): void {
@@ -83,7 +100,7 @@ export class DetailComponent implements OnInit {
     } else {
       this.errorsService.setErrorInfo({
         title: 'ID Error',
-        message: 'Station ID not exists'
+        message: 'Station ID not exists',
       });
       this.errorsService.setError();
     }

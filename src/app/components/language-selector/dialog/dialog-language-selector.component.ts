@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { DialogLanguageDialogData } from '../../../app.models';
 import { DialogConfig } from '../../../modules/dialog/dialog-config';
 import { DialogRef } from '../../../modules/dialog/dialog-ref';
-import { DialogLanguageDialogData } from '../../../app.models';
-import { TranslateModule } from '@ngx-translate/core';
 import { FirstUpperCasePipe } from '../../../pipes/first-uppercase.pipe';
 
 @Component({
@@ -11,16 +11,13 @@ import { FirstUpperCasePipe } from '../../../pipes/first-uppercase.pipe';
   styleUrls: ['./dialog-language-selector.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    TranslateModule,
-    FirstUpperCasePipe
-  ]
+  imports: [TranslateModule, FirstUpperCasePipe],
 })
 export class DialogLanguageSelectorComponent {
   constructor(
     public config: DialogConfig<DialogLanguageDialogData>,
     private readonly dialog: DialogRef
-  ){}
+  ) {}
 
   changeLang(lang: string): void {
     this.dialog.close(lang);
@@ -28,5 +25,10 @@ export class DialogLanguageSelectorComponent {
 
   onCancel(): void {
     this.dialog.close(null);
+  }
+
+  changeSource(event: Event): void {
+    (event.target as HTMLImageElement).src =
+      'assets/images/languages/default.png';
   }
 }

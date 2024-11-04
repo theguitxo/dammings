@@ -1,12 +1,12 @@
-import { Injectable } from "@angular/core";
-import { ErrorData } from "../app.models";
-import { Subject } from "rxjs/internal/Subject";
-import { Observable } from "rxjs";
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Subject } from 'rxjs/internal/Subject';
+import { ErrorData } from '../app.models';
 
 @Injectable()
 export class ErrorsService {
-  private _error: Subject<boolean> = new Subject<boolean>();
-  private _errorInfo: Subject<ErrorData> = new Subject<ErrorData>();
+  private readonly _error: Subject<boolean> = new Subject<boolean>();
+  private readonly _errorInfo: Subject<ErrorData> = new Subject<ErrorData>();
 
   get error(): Observable<boolean> {
     return this._error.asObservable();
