@@ -2,7 +2,7 @@
 
 This is an app that show information about the water dammed in Catalonia's damms.
 
-It's made with Angular (version 17). The data are managed by a own service and the graphs are generated with SVG graphics.
+It's made with Angular (version 18) with standalone components (updated from Angular v17 with modules). The data are managed by a own service and the graphs are generated with SVG graphics.
 
 The data of the dammings are provided by the Generalitat de Catalunya. More info in this url:
 
