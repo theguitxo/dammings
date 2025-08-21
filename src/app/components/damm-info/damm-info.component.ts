@@ -13,12 +13,11 @@ import { percentageCorrector } from '../../utils/percentage';
 import { PieChartComponent } from '../pie-chart/pie-chart.component';
 
 @Component({
-  selector: 'dammings-damm-info',
-  templateUrl: './damm-info.component.html',
-  styleUrls: ['./damm-info.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [PieChartComponent, TranslateModule, FirstUpperCasePipe],
+    selector: 'dammings-damm-info',
+    templateUrl: './damm-info.component.html',
+    styleUrls: ['./damm-info.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [PieChartComponent, TranslateModule, FirstUpperCasePipe]
 })
 export class DammInfoComponent implements OnInit {
   @Input() dammingInfo!: DammingsInfo;

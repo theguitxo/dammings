@@ -18,17 +18,16 @@ import { HistoricChartComponent } from '../historic-chart/historic-chart.compone
 import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
 
 @Component({
-  selector: 'dammmings-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [
-    LoadingSpinnerComponent,
-    ErrorsInfoComponent,
-    DammInfoComponent,
-    HistoricChartComponent,
-  ],
+    selector: 'dammmings-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        LoadingSpinnerComponent,
+        ErrorsInfoComponent,
+        DammInfoComponent,
+        HistoricChartComponent,
+    ]
 })
 export class HomeComponent implements OnInit {
   loadingService = inject(LoadingService);

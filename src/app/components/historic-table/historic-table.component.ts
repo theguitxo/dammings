@@ -10,12 +10,11 @@ import { FirstUpperCasePipe } from '../../pipes/first-uppercase.pipe';
 import { percentageCorrector } from '../../utils/percentage';
 
 @Component({
-  selector: 'dammings-historic-table',
-  templateUrl: './historic-table.component.html',
-  styleUrls: ['./historic-table.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [TranslateModule, FirstUpperCasePipe],
+    selector: 'dammings-historic-table',
+    templateUrl: './historic-table.component.html',
+    styleUrls: ['./historic-table.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [TranslateModule, FirstUpperCasePipe]
 })
 export class HistoricTableComponent implements OnInit {
   @Input() info!: DammingsInfo[];

@@ -24,19 +24,18 @@ import { HistoricChartComponent } from '../historic-chart/historic-chart.compone
 import { HistoricTableComponent } from '../historic-table/historic-table.component';
 
 @Component({
-  selector: 'dammings-detail',
-  templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [
-    CommonModule,
-    ErrorsInfoComponent,
-    HistoricChartComponent,
-    HistoricTableComponent,
-    TranslateModule,
-    FirstUpperCasePipe,
-  ],
+    selector: 'dammings-detail',
+    templateUrl: './detail.component.html',
+    styleUrls: ['./detail.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule,
+        ErrorsInfoComponent,
+        HistoricChartComponent,
+        HistoricTableComponent,
+        TranslateModule,
+        FirstUpperCasePipe,
+    ]
 })
 export class DetailComponent implements OnInit {
   @Input() id!: string;

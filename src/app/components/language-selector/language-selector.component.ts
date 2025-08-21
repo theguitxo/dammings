@@ -25,12 +25,11 @@ import { DialogLanguageSelectorComponent } from './dialog/dialog-language-select
 const LANG_ICON_PATH = 'assets/images/languages/';
 
 @Component({
-  selector: 'dammings-language-selector',
-  templateUrl: './language-selector.component.html',
-  styleUrls: ['./language-selector.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [TranslateModule, DialogLanguageSelectorComponent],
+    selector: 'dammings-language-selector',
+    templateUrl: './language-selector.component.html',
+    styleUrls: ['./language-selector.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [TranslateModule, DialogLanguageSelectorComponent]
 })
 export class LanguageSelectorComponent implements OnInit, AfterViewInit {
   @ViewChildren('button') buttons!: QueryList<ElementRef>;

@@ -14,9 +14,10 @@ import { DialogRef } from '../dialog-ref';
 import { InsertionDirective } from '../insertion.directive';
 
 @Component({
-  selector: 'dammings-overlay',
-  templateUrl: './overlay.component.html',
-  styleUrls: ['./overlay.component.scss'],
+    selector: 'dammings-overlay',
+    templateUrl: './overlay.component.html',
+    styleUrls: ['./overlay.component.scss'],
+    standalone: false
 })
 export class OverlayComponent implements OnInit, OnDestroy, AfterViewInit {
   private readonly renderer = inject(Renderer2);
