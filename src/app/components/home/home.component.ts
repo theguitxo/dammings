@@ -14,20 +14,14 @@ import { ErrorsService } from '../../services/errors.service';
 import { LoadingService } from '../../services/loading.service';
 import { DammInfoComponent } from '../damm-info/damm-info.component';
 import { ErrorsInfoComponent } from '../errors-info/errors-info.component';
-import { HistoricChartComponent } from '../historic-chart/historic-chart.component';
 import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
 
 @Component({
-    selector: 'dammmings-home',
-    templateUrl: './home.component.html',
-    styleUrls: ['./home.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        LoadingSpinnerComponent,
-        ErrorsInfoComponent,
-        DammInfoComponent,
-        HistoricChartComponent,
-    ]
+  selector: 'dammmings-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [LoadingSpinnerComponent, ErrorsInfoComponent, DammInfoComponent],
 })
 export class HomeComponent implements OnInit {
   loadingService = inject(LoadingService);

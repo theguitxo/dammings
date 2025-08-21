@@ -16,7 +16,6 @@ import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { DammingsInfo } from '../../app.models';
-import { FirstUpperCasePipe } from '../../pipes/first-uppercase.pipe';
 import { DammingsService } from '../../services/dammings.service';
 import { ErrorsService } from '../../services/errors.service';
 import { ErrorsInfoComponent } from '../errors-info/errors-info.component';
@@ -24,18 +23,17 @@ import { HistoricChartComponent } from '../historic-chart/historic-chart.compone
 import { HistoricTableComponent } from '../historic-table/historic-table.component';
 
 @Component({
-    selector: 'dammings-detail',
-    templateUrl: './detail.component.html',
-    styleUrls: ['./detail.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        CommonModule,
-        ErrorsInfoComponent,
-        HistoricChartComponent,
-        HistoricTableComponent,
-        TranslateModule,
-        FirstUpperCasePipe,
-    ]
+  selector: 'dammings-detail',
+  templateUrl: './detail.component.html',
+  styleUrls: ['./detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    CommonModule,
+    ErrorsInfoComponent,
+    HistoricChartComponent,
+    HistoricTableComponent,
+    TranslateModule,
+  ],
 })
 export class DetailComponent implements OnInit {
   @Input() id!: string;
