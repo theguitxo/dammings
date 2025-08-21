@@ -6,7 +6,7 @@ on:
     branches:
       - master
 
-jobs:  
+jobs:
   build:
     runs-on: ubuntu-latest
     steps:
@@ -23,11 +23,11 @@ jobs:
 
       - name: Build
         run: npm run build
-  
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: ./dist/browser
           retention-days: 0
 
   deploy:
@@ -38,9 +38,9 @@ jobs:
       id-token: write
 
     environment:
-      name: 'github-pages'
+      name: "github-pages"
       url: ${{ steps.deployment.outputs.page_url }}
-    
+
     runs-on: ubuntu-latest
 
     steps:

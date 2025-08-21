@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "copy-not-found": "copyfiles -f ./src/404.html ./dist",
+    "copy-not-found": "copyfiles -f ./src/404.html ./dist/browser",
     "build": "ng build && npm run copy-not-found",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
