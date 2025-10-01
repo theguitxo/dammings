@@ -10,19 +10,19 @@ The data of the dammings are provided by the Generalitat de Catalunya. More info
 
 ## App run
 
-* Clone the repository:
+- Clone the repository:
 
-``` git clone https://github.com/theguitxo/dammings.git ```
+`git clone https://github.com/theguitxo/dammings.git`
 
-* Move to the project folder:
+- Move to the project folder:
 
-``` cd dammings ```
+`cd dammings`
 
-* Run the dev server:
+- Run the dev server:
 
-``` npm run start ```
+`npm run start`
 
-* Navigate to: **http://localhost:4200**
+- Navigate to: **http://localhost:4200**
 
 ## Demo
 
@@ -30,15 +30,12 @@ You can see a demo of this app here:
 
 [https://theguitxo.github.io/dammings/](https://theguitxo.github.io/dammings/)
 
-[https://dammings.vercel.app/](https://dammings.vercel.app/)
-
 ## Screenshots
 
 ### Desktop
 
 ![](./desktop1.png)
 ![](./desktop2.png)
-
 
 ### Mobile
 
