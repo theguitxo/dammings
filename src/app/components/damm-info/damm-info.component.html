@@ -1,19 +1,26 @@
 <div class="dammings-damm-info__wrapper">
   <div class="dammings-damm-info__table">
-    <div class="dammings-damm-info__title">{{ 'damm-info.damm' | translate | firstuppercase }}:</div>
+    <div class="dammings-damm-info__title">
+      {{ "damm-info.damm" | translate | firstuppercase }}:
+    </div>
     <div class="dammings-damm-info__data">{{ dammingInfo.estaci }}</div>
-    <div class="dammings-damm-info__title">{{ 'damm-info.dammed-watter' | translate | firstuppercase }}:</div>
-    <div class="dammings-damm-info__data">{{ percentageFormatted }}</div>
-    <div class="dammings-damm-info__title">{{ 'common.date' | translate | firstuppercase }}:</div>
-    <div class="dammings-damm-info__data">{{ dateFormatted }}</div>
+    <div class="dammings-damm-info__title">
+      {{ "damm-info.dammed-watter" | translate | firstuppercase }}:
+    </div>
+    <div class="dammings-damm-info__data">{{ percentageFormatted() }}</div>
+    <div class="dammings-damm-info__title">
+      {{ "common.date" | translate | firstuppercase }}:
+    </div>
+    <div class="dammings-damm-info__data">{{ dateFormatted() }}</div>
   </div>
   <div class="dammings-damm-info__more-button">
     <button
       type="button"
       class="dammings__button dammings__button--green"
-      (click)="showDetail()">
-      {{ 'damm-info.see-last-seven-days-information' | translate }}
+      (click)="showDetail()"
+    >
+      {{ "damm-info.see-last-seven-days-information" | translate }}
     </button>
   </div>
-  <dammings-pie-chart [percentage]="percentage" />
+  <dammings-pie-chart [percentage]="percentage()" />
 </div>

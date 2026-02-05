@@ -11,6 +11,7 @@ import {
   computed,
   effect,
   inject,
+  signal,
 } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
@@ -43,12 +44,11 @@ export class DetailComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly dammingsService = inject(DammingsService);
   private readonly cd = inject(ChangeDetectorRef);
+  private readonly errorsService = inject(ErrorsService);
 
-  errorsService = inject(ErrorsService);
-
-  showHistoricData!: Signal<boolean>;
-  stationsData!: Signal<DammingsInfo[]>;
-  stationName!: string;
+  protected showHistoricData!: Signal<boolean>;
+  protected stationsData!: Signal<DammingsInfo[]>;
+  protected stationName = signal<string>('');
 
   ngOnInit(): void {
     this.setSignals();
@@ -64,13 +64,13 @@ export class DetailComponent implements OnInit {
     effect(
       () => {
         if (this.stationsData()?.length) {
-          this.stationName = this.stationsData()[0].estaci;
+          this.stationName.set(this.stationsData()[0].estaci);
           this.cd.markForCheck();
         }
       },
       {
         injector: this.injector,
-      }
+      },
     );
 
     this.stationsData = toSignal(this.dammingsService.lastSevenDaysData, {

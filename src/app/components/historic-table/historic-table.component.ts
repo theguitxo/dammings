@@ -3,6 +3,8 @@ import {
   Component,
   Input,
   OnInit,
+  signal,
+  WritableSignal,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { DammingsInfo, HistoricDataTableRow } from '../../app.models';
@@ -10,16 +12,16 @@ import { FirstUpperCasePipe } from '../../pipes/first-uppercase.pipe';
 import { percentageCorrector } from '../../utils/percentage';
 
 @Component({
-    selector: 'dammings-historic-table',
-    templateUrl: './historic-table.component.html',
-    styleUrls: ['./historic-table.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [TranslateModule, FirstUpperCasePipe]
+  selector: 'dammings-historic-table',
+  templateUrl: './historic-table.component.html',
+  styleUrls: ['./historic-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [TranslateModule, FirstUpperCasePipe],
 })
 export class HistoricTableComponent implements OnInit {
   @Input() info!: DammingsInfo[];
 
-  tableData!: HistoricDataTableRow[];
+  protected tableData!: WritableSignal<HistoricDataTableRow[]>;
 
   ngOnInit(): void {
     this.setTableData();
@@ -59,6 +61,6 @@ export class HistoricTableComponent implements OnInit {
       };
     });
 
-    this.tableData = tableData;
+    this.tableData = signal(tableData);
   }
 }

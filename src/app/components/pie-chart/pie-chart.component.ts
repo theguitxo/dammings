@@ -25,10 +25,10 @@ export class PieChartComponent implements AfterViewInit {
 
   @Input() percentage!: number;
 
-  renderer = inject(Renderer2);
+  private readonly renderer = inject(Renderer2);
 
-  backgroundBoundings!: DOMRect;
-  percentBoundings!: DOMRect;
+  protected backgroundBoundings!: DOMRect;
+  protected percentBoundings!: DOMRect;
 
   ngAfterViewInit(): void {
     this.setGraphsSizes(this.backgroundContainer);
@@ -42,7 +42,7 @@ export class PieChartComponent implements AfterViewInit {
       this.renderer.setStyle(
         element?.nativeElement,
         'height',
-        `${boundings.width}px`
+        `${boundings.width}px`,
       );
     }
   }
@@ -58,12 +58,12 @@ export class PieChartComponent implements AfterViewInit {
       this.renderer.setStyle(
         this.percentChart?.nativeElement,
         'strokeDashoffset',
-        `${value / 2}`
+        `${value / 2}`,
       );
       this.renderer.setStyle(
         this.percentChart?.nativeElement,
         'strokeDasharray',
-        `${value} ${perimeter - value}`
+        `${value} ${perimeter - value}`,
       );
     }
   }

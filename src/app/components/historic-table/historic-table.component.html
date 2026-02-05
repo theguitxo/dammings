@@ -1,31 +1,44 @@
 <table
   [attr.aria-label]="'historic-table.aria-label' | translate"
-  class="dammings-detail__historic-table">
+  class="dammings-detail__historic-table"
+>
   <thead>
     <tr>
-      <th>{{ 'common.date' | translate | firstuppercase }}</th>
-      <th>{{ 'historic-table.percentage' | translate | firstuppercase }} (%)</th>
-      <th>{{ 'historic-table.diff-percentage' | translate | firstuppercase }} (%)</th>
-      <th>{{ 'historic-table.volume' | translate | firstuppercase }} (hm<sup>3</sup>)</th>
-      <th>{{ 'historic-table.diff-volume' | translate | firstuppercase }} (hm<sup>3</sup>)</th>
+      <th>{{ "common.date" | translate | firstuppercase }}</th>
+      <th>
+        {{ "historic-table.percentage" | translate | firstuppercase }} (%)
+      </th>
+      <th>
+        {{ "historic-table.diff-percentage" | translate | firstuppercase }} (%)
+      </th>
+      <th>
+        {{ "historic-table.volume" | translate | firstuppercase }}
+        (hm<sup>3</sup>)
+      </th>
+      <th>
+        {{ "historic-table.diff-volume" | translate | firstuppercase }}
+        (hm<sup>3</sup>)
+      </th>
     </tr>
   </thead>
   <tbody>
-    @for (line of tableData; track line) {
+    @for (line of tableData(); track line) {
       <tr>
         <td>{{ line.date }}</td>
         <td class="data-value">{{ line.percentageFormatted }}</td>
         <td
           class="data-value difference-value"
           [class.positive]="!line.diffPercentageIsNegative"
-          [class.negative]="line.diffPercentageIsNegative">
+          [class.negative]="line.diffPercentageIsNegative"
+        >
           {{ line.diffPercentageFormatted }}
         </td>
         <td class="data-value">{{ line.volumeFormatted }}</td>
         <td
           class="data-value difference-value"
           [class.positive]="!line.diffVolumeIsNegative"
-          [class.negative]="line.diffVolumeIsNegative">
+          [class.negative]="line.diffVolumeIsNegative"
+        >
           {{ line.diffVolumeFormatted }}
         </td>
       </tr>

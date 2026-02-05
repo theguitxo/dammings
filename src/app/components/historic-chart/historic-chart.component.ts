@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   Input,
   OnInit,
 } from '@angular/core';
@@ -33,34 +34,72 @@ const Y_LABELS_POS_Y_TRANSLATION = 0.5;
 export class HistoricChartComponent implements OnInit {
   @Input() info!: DammingsInfo[];
 
-  verticalLines!: VerticalLine[];
-  horizontalLines!: HorizontalLine[];
-  yPoints!: number[];
-  lines!: ValueLine[];
-  valuePoints!: ValuePoint[];
-  valueTooltips!: ValueTooltip[];
-  horizontalLinesValues!: HorizontalLinesValues;
+  protected verticalLines = computed<VerticalLine[]>(() => {
+    const chartWidth = CHART_END_X - CHART_INIT_X;
+    const verticalGap = chartWidth / this.horizontalLinesValues().totalItems;
+    const centerGap = verticalGap / 2;
+    const initialX = CHART_INIT_X + centerGap;
+    return this.info.map((item, i) => ({
+      text: new Date(item.dia).toLocaleDateString(),
+      xLine: initialX + i * verticalGap,
+    }));
+  });
 
-  ngOnInit(): void {
-    this.info.reverse();
-    this.setHorizontalLinesValues();
-    this.setHorizontalLines();
-    this.setYPoints();
-    this.setVerticalLines();
-    this.setLines();
-    this.setValuePoints();
-    this.setValueTooltips();
-  }
+  protected horizontalLines = computed<HorizontalLine[]>(() => {
+    return this.horizontalLinesValues().chartLabels.map((v, i) => ({
+      y:
+        CHART_INIT_Y +
+        i * (CHART_HEIGHT / this.horizontalLinesValues().totalItems),
+      x1: CHART_INIT_X,
+      x2: CHART_END_X,
+      yText:
+        CHART_INIT_Y +
+        i * (CHART_HEIGHT / this.horizontalLinesValues().totalItems) +
+        Y_LABELS_POS_Y_TRANSLATION,
+      xText: Y_LABELS_POS_X,
+      text: v,
+    }));
+  });
 
-  showTooltip(i: number): void {
-    this.valueTooltips[i].show = true;
-  }
+  protected yPoints = computed<number[]>(() => {
+    return this.info.map((item) => {
+      const relativeValue =
+        ((percentageCorrector(+item.percentatge_volum_embassat) -
+          this.horizontalLinesValues().init) *
+          100) /
+        this.horizontalLinesValues().gapInitEnd;
+      return CHART_END_Y - (relativeValue * CHART_HEIGHT) / 100;
+    });
+  });
 
-  hideTooltip(i: number): void {
-    this.valueTooltips[i].show = false;
-  }
+  protected lines = computed<ValueLine[]>(() => {
+    return this.yPoints()
+      .slice(0, this.yPoints.length - 1)
+      .map((_v, i) => ({
+        x1: this.verticalLines()[i].xLine,
+        x2: this.verticalLines()[i + 1].xLine,
+        y1: this.yPoints()[i],
+        y2: this.yPoints()[i + 1],
+      }));
+  });
 
-  private setHorizontalLinesValues(): void {
+  protected valuePoints = computed<ValuePoint[]>(() => {
+    return this.yPoints().map((v, i) => ({
+      cx: this.verticalLines()[i].xLine,
+      cy: v,
+    }));
+  });
+
+  protected valueTooltips = computed<ValueTooltip[]>(() => {
+    return this.info.map((v, i) => ({
+      x: this.verticalLines()[i].xLine,
+      y: this.yPoints()[i],
+      text: (+v.percentatge_volum_embassat).toFixed(2).replace('.', ','),
+      show: false,
+    }));
+  });
+
+  protected horizontalLinesValues = computed<HorizontalLinesValues>(() => {
     const values = this.info
       .map((item) => percentageCorrector(+item.percentatge_volum_embassat))
       .sort((a, b) => (a > b ? 1 : -1));
@@ -72,7 +111,7 @@ export class HistoricChartComponent implements OnInit {
     const end = max + (max - min) / totalItems;
     const chartGap = (end - init) / totalItems;
 
-    this.horizontalLinesValues = {
+    return {
       totalItems,
       init,
       end,
@@ -82,72 +121,17 @@ export class HistoricChartComponent implements OnInit {
         .fill('')
         .map((_v, i) => `${(end - i * chartGap).toFixed(2)}%`),
     };
+  });
+
+  ngOnInit(): void {
+    this.info.reverse();
   }
 
-  private setHorizontalLines(): void {
-    this.horizontalLines = this.horizontalLinesValues.chartLabels.map(
-      (v, i) => ({
-        y:
-          CHART_INIT_Y +
-          i * (CHART_HEIGHT / this.horizontalLinesValues.totalItems),
-        x1: CHART_INIT_X,
-        x2: CHART_END_X,
-        yText:
-          CHART_INIT_Y +
-          i * (CHART_HEIGHT / this.horizontalLinesValues.totalItems) +
-          Y_LABELS_POS_Y_TRANSLATION,
-        xText: Y_LABELS_POS_X,
-        text: v,
-      })
-    );
+  protected showTooltip(i: number): void {
+    this.valueTooltips()[i].show = true;
   }
 
-  private setYPoints(): void {
-    this.yPoints = this.info.map((item) => {
-      const relativeValue =
-        ((percentageCorrector(+item.percentatge_volum_embassat) -
-          this.horizontalLinesValues.init) *
-          100) /
-        this.horizontalLinesValues.gapInitEnd;
-      return CHART_END_Y - (relativeValue * CHART_HEIGHT) / 100;
-    });
-  }
-
-  private setVerticalLines(): void {
-    const chartWidth = CHART_END_X - CHART_INIT_X;
-    const verticalGap = chartWidth / this.horizontalLinesValues.totalItems;
-    const centerGap = verticalGap / 2;
-    const initialX = CHART_INIT_X + centerGap;
-    this.verticalLines = this.info.map((item, i) => ({
-      text: new Date(item.dia).toLocaleDateString(),
-      xLine: initialX + i * verticalGap,
-    }));
-  }
-
-  private setLines(): void {
-    this.lines = this.yPoints
-      .slice(0, this.yPoints.length - 1)
-      .map((_v, i) => ({
-        x1: this.verticalLines[i].xLine,
-        x2: this.verticalLines[i + 1].xLine,
-        y1: this.yPoints[i],
-        y2: this.yPoints[i + 1],
-      }));
-  }
-
-  private setValuePoints(): void {
-    this.valuePoints = this.yPoints.map((v, i) => ({
-      cx: this.verticalLines[i].xLine,
-      cy: v,
-    }));
-  }
-
-  private setValueTooltips(): void {
-    this.valueTooltips = this.info.map((v, i) => ({
-      x: this.verticalLines[i].xLine,
-      y: this.yPoints[i],
-      text: (+v.percentatge_volum_embassat).toFixed(2).replace('.', ','),
-      show: false,
-    }));
+  protected hideTooltip(i: number): void {
+    this.valueTooltips()[i].show = false;
   }
 }

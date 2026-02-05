@@ -8,7 +8,9 @@ import {
   QueryList,
   Renderer2,
   ViewChildren,
+  WritableSignal,
   inject,
+  signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -34,9 +36,12 @@ const LANG_ICON_PATH = 'assets/images/languages/';
 export class LanguageSelectorComponent implements OnInit, AfterViewInit {
   @ViewChildren('button') buttons!: QueryList<ElementRef>;
 
-  destroyRef = inject(DestroyRef);
+  private readonly translate = inject(TranslateService);
+  private readonly renderer = inject(Renderer2);
+  private readonly dialog = inject(DialogService);
+  private readonly destroyRef = inject(DestroyRef);
 
-  langsItems: LangItem[] = [
+  protected langsItems = signal<LangItem[]>([
     {
       code: LANGUAGES.ENGLISH,
       icon: `${LANG_ICON_PATH}english.png`,
@@ -55,37 +60,32 @@ export class LanguageSelectorComponent implements OnInit, AfterViewInit {
       lang: 'language-selector.catalan',
       selected: false,
     },
-  ];
-  buttonsList!: ElementRef[];
-  actualButtonIndex!: number;
-  showArrows!: boolean;
-  showPrevArrow!: boolean;
-  showNextArrow!: boolean;
-  showingSelected!: boolean;
-
-  constructor(
-    private readonly translate: TranslateService,
-    private readonly renderer: Renderer2,
-    private readonly dialog: DialogService,
-  ) {}
+  ]);
+  protected buttonsList!: WritableSignal<ElementRef[]>;
+  protected actualButtonIndex!: WritableSignal<number>;
+  protected showArrows!: WritableSignal<boolean>;
+  protected showPrevArrow!: WritableSignal<boolean>;
+  protected showNextArrow!: WritableSignal<boolean>;
+  protected showingSelected = signal(false);
 
   ngOnInit(): void {
-    this.showArrows = !isMobileDevice();
+    this.showArrows = signal(!isMobileDevice());
     this.setSelected();
     this.initOnLangChangeSubscription();
   }
 
   ngAfterViewInit(): void {
-    this.buttonsList = Array.from(this.buttons);
-    this.actualButtonIndex =
-      this.langsItems?.findIndex((item) => item.selected) || 0;
+    this.buttonsList = signal(Array.from(this.buttons));
+    this.actualButtonIndex = signal(
+      this.langsItems()?.findIndex((item) => item.selected) || 0,
+    );
     this.setShowArrowValues();
     this.updateButtonsPosition();
     this.setShowSelected();
   }
 
   moveLang(dir: number): void {
-    this.actualButtonIndex += dir;
+    this.actualButtonIndex.update((value) => value + dir);
     this.setShowArrowValues();
     this.updateButtonsPosition();
     this.setSelected();
@@ -102,7 +102,7 @@ export class LanguageSelectorComponent implements OnInit, AfterViewInit {
 
   private openLanguageDialog(): void {
     const dialogData: DialogLanguageDialogData = {
-      langs: this.langsItems.filter((lang) => !lang.selected),
+      langs: this.langsItems().filter((lang) => !lang.selected),
     };
 
     const dialogRef = this.dialog.open(DialogLanguageSelectorComponent, {
@@ -125,8 +125,9 @@ export class LanguageSelectorComponent implements OnInit, AfterViewInit {
       .subscribe(() => {
         this.setSelected();
         if (isMobileDevice()) {
-          this.actualButtonIndex =
-            this.langsItems.findIndex((item) => item.selected) * -1;
+          this.actualButtonIndex.set(
+            this.langsItems().findIndex((item) => item.selected) * -1,
+          );
           this.updateButtonsPosition();
         }
         this.setShowSelected();
@@ -134,28 +135,31 @@ export class LanguageSelectorComponent implements OnInit, AfterViewInit {
   }
 
   private setSelected(): void {
-    this.langsItems?.forEach(
+    this.langsItems()?.forEach(
       (item) => (item.selected = item.code === this.translate.currentLang),
     );
   }
 
   private setShowSelected(): void {
     const indexSelected =
-      this.langsItems?.findIndex((item) => item.selected) || 0;
-    this.showingSelected = Math.abs(this.actualButtonIndex) === indexSelected;
+      this.langsItems()?.findIndex((item) => item.selected) || 0;
+    this.showingSelected.set(
+      Math.abs(this.actualButtonIndex()) === indexSelected,
+    );
   }
 
   private updateButtonsPosition(): void {
-    const newLeft = this.actualButtonIndex * 100;
-    this.buttonsList?.forEach((item) =>
+    const newLeft = this.actualButtonIndex() * 100;
+    this.buttonsList()?.forEach((item) =>
       this.renderer.setStyle(item.nativeElement, 'left', `${newLeft}%`),
     );
   }
 
   private setShowArrowValues(): void {
-    this.showPrevArrow = Math.abs(this.actualButtonIndex) > 0;
-    this.showNextArrow =
-      Math.abs(this.actualButtonIndex) < this.buttonsList.length - 1;
+    this.showPrevArrow = signal(Math.abs(this.actualButtonIndex()) > 0);
+    this.showNextArrow = signal(
+      Math.abs(this.actualButtonIndex()) < this.buttonsList.length - 1,
+    );
   }
 
   changeSource(event: Event): void {

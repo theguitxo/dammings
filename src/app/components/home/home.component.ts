@@ -10,8 +10,6 @@ import {
 import { toSignal } from '@angular/core/rxjs-interop';
 import { DammingsInfo } from '../../app.models';
 import { DammingsService } from '../../services/dammings.service';
-import { ErrorsService } from '../../services/errors.service';
-import { LoadingService } from '../../services/loading.service';
 import { DammInfoComponent } from '../damm-info/damm-info.component';
 import { ErrorsInfoComponent } from '../errors-info/errors-info.component';
 import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
@@ -24,16 +22,13 @@ import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.comp
   imports: [LoadingSpinnerComponent, ErrorsInfoComponent, DammInfoComponent],
 })
 export class HomeComponent implements OnInit {
-  loadingService = inject(LoadingService);
-  dammingsService = inject(DammingsService);
-  errorsService = inject(ErrorsService);
-
-  dataLoaded!: Signal<boolean>;
-  errorLoading!: Signal<boolean>;
-  stationsData!: Signal<DammingsInfo[]>;
-  showData!: Signal<boolean>;
-
+  private readonly dammingsService = inject(DammingsService);
   private readonly injector = inject(Injector);
+
+  protected dataLoaded!: Signal<boolean>;
+  protected errorLoading!: Signal<boolean>;
+  protected stationsData!: Signal<DammingsInfo[]>;
+  protected showData!: Signal<boolean>;
 
   ngOnInit(): void {
     this.dataLoaded = toSignal(this.dammingsService.dataLoaded, {

@@ -3,7 +3,10 @@ import {
   Component,
   Input,
   OnInit,
+  WritableSignal,
+  computed,
   inject,
+  signal,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -13,27 +16,29 @@ import { percentageCorrector } from '../../utils/percentage';
 import { PieChartComponent } from '../pie-chart/pie-chart.component';
 
 @Component({
-    selector: 'dammings-damm-info',
-    templateUrl: './damm-info.component.html',
-    styleUrls: ['./damm-info.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [PieChartComponent, TranslateModule, FirstUpperCasePipe]
+  selector: 'dammings-damm-info',
+  templateUrl: './damm-info.component.html',
+  styleUrls: ['./damm-info.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [PieChartComponent, TranslateModule, FirstUpperCasePipe],
 })
 export class DammInfoComponent implements OnInit {
   @Input() dammingInfo!: DammingsInfo;
 
-  percentage!: number;
+  private readonly router = inject(Router);
 
-  percentageFormatted!: string;
-  dateFormatted!: string;
-
-  router = inject(Router);
+  protected percentage!: WritableSignal<number>;
+  protected percentageFormatted = computed<string>(() => {
+    const percentageValue = percentageCorrector(this.percentage());
+    return `${percentageValue.toLocaleString()} %`;
+  });
+  protected dateFormatted!: WritableSignal<string>;
 
   ngOnInit(): void {
-    this.percentage = +this.dammingInfo?.percentatge_volum_embassat;
-    const percentageValue = percentageCorrector(this.percentage);
-    this.percentageFormatted = `${percentageValue.toLocaleString()} %`;
-    this.dateFormatted = new Date(this.dammingInfo.dia).toLocaleDateString();
+    this.percentage = signal(+this.dammingInfo?.percentatge_volum_embassat);
+    this.dateFormatted = signal(
+      new Date(this.dammingInfo.dia).toLocaleDateString(),
+    );
   }
 
   showDetail(): void {
