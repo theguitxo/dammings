@@ -61,15 +61,16 @@ export class LanguageSelectorComponent implements OnInit, AfterViewInit {
       selected: false,
     },
   ]);
+
   protected buttonsList!: WritableSignal<ElementRef[]>;
   protected actualButtonIndex!: WritableSignal<number>;
-  protected showArrows!: WritableSignal<boolean>;
-  protected showPrevArrow!: WritableSignal<boolean>;
-  protected showNextArrow!: WritableSignal<boolean>;
+  protected showArrows = signal<boolean>(false);
+  protected showPrevArrow = signal<boolean>(false);
+  protected showNextArrow = signal<boolean>(false);
   protected showingSelected = signal(false);
 
   ngOnInit(): void {
-    this.showArrows = signal(!isMobileDevice());
+    this.showArrows.set(!isMobileDevice());
     this.setSelected();
     this.initOnLangChangeSubscription();
   }
@@ -84,7 +85,7 @@ export class LanguageSelectorComponent implements OnInit, AfterViewInit {
     this.setShowSelected();
   }
 
-  moveLang(dir: number): void {
+  protected moveLang(dir: number): void {
     this.actualButtonIndex.update((value) => value + dir);
     this.setShowArrowValues();
     this.updateButtonsPosition();
@@ -92,7 +93,7 @@ export class LanguageSelectorComponent implements OnInit, AfterViewInit {
     this.setShowSelected();
   }
 
-  selectLang(event: LangItem): void {
+  protected selectLang(event: LangItem): void {
     if (isMobileDevice()) {
       this.openLanguageDialog();
     } else if (!event.selected) {
@@ -156,13 +157,13 @@ export class LanguageSelectorComponent implements OnInit, AfterViewInit {
   }
 
   private setShowArrowValues(): void {
-    this.showPrevArrow = signal(Math.abs(this.actualButtonIndex()) > 0);
-    this.showNextArrow = signal(
-      Math.abs(this.actualButtonIndex()) < this.buttonsList.length - 1,
+    this.showPrevArrow.set(Math.abs(this.actualButtonIndex()) > 0);
+    this.showNextArrow.set(
+      Math.abs(this.actualButtonIndex()) < this.buttonsList().length - 1,
     );
   }
 
-  changeSource(event: Event): void {
+  protected changeSource(event: Event): void {
     (event.target as HTMLImageElement).src =
       'assets/images/languages/default.png';
   }

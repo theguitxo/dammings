@@ -14,18 +14,18 @@ import { DialogRef } from '../dialog-ref';
 import { InsertionDirective } from '../insertion.directive';
 
 @Component({
-    selector: 'dammings-overlay',
-    templateUrl: './overlay.component.html',
-    styleUrls: ['./overlay.component.scss'],
-    standalone: false
+  selector: 'dammings-overlay',
+  templateUrl: './overlay.component.html',
+  styleUrls: ['./overlay.component.scss'],
+  standalone: false,
 })
 export class OverlayComponent implements OnInit, OnDestroy, AfterViewInit {
   private readonly renderer = inject(Renderer2);
   private readonly cd = inject(ChangeDetectorRef);
   private readonly dialogRef = inject(DialogRef);
 
-  componentRef!: ComponentRef<any>;
-  childComponentType!: Type<any>;
+  private componentRef!: ComponentRef<any>;
+  public childComponentType!: Type<any>;
 
   @ViewChild(InsertionDirective) insertionPoint!: InsertionDirective;
 
@@ -45,15 +45,15 @@ export class OverlayComponent implements OnInit, OnDestroy, AfterViewInit {
     this.cd.detectChanges();
   }
 
-  onOverlayClicked(evt: MouseEvent): void {
+  protected onOverlayClicked(evt: MouseEvent): void {
     this.dialogRef.close(null);
   }
 
-  onDialogClicked(evt: MouseEvent): void {
+  protected onDialogClicked(evt: MouseEvent): void {
     evt.stopPropagation();
   }
 
-  loadChildComponent(componentType: Type<any>) {
+  private loadChildComponent(componentType: Type<any>) {
     let viewContainerRef = this.insertionPoint.viewContainerRef;
     viewContainerRef.clear();
 

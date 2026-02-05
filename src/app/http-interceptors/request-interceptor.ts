@@ -5,21 +5,19 @@ import {
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, catchError, finalize, throwError } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { catchError, finalize, Observable, throwError } from 'rxjs';
 import { ErrorsService } from '../services/errors.service';
 import { LoadingService } from '../services/loading.service';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
-  constructor(
-    private readonly loadingService: LoadingService,
-    private readonly errorsService: ErrorsService
-  ) {}
+  private readonly loadingService = inject(LoadingService);
+  private readonly errorsService = inject(ErrorsService);
 
   intercept(
     req: HttpRequest<any>,
-    next: HttpHandler
+    next: HttpHandler,
   ): Observable<HttpEvent<any>> {
     this.loadingService.startLoading();
 
@@ -32,7 +30,7 @@ export class RequestInterceptor implements HttpInterceptor {
         this.errorsService.setError();
         return throwError(() => new Error('error'));
       }),
-      finalize(() => this.loadingService.stopLoading())
+      finalize(() => this.loadingService.stopLoading()),
     );
   }
 }
