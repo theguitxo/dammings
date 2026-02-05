@@ -8,6 +8,7 @@ import {
   of,
   take,
 } from 'rxjs';
+import { v4 as uuidv4 } from 'uuid';
 import { DammingsInfo } from '../app.models';
 
 @Injectable()
@@ -67,7 +68,7 @@ export class DammingsService {
       .get<DammingsInfo[]>(this.dammingsInfoUrl)
       .pipe(
         take(1),
-        catchError(() => this.errorLoadingData())
+        catchError(() => this.errorLoadingData()),
       )
       .subscribe((data: DammingsInfo[]) => this.setDammingsData(data));
   }
@@ -85,7 +86,7 @@ export class DammingsService {
     });
 
     const values = Array.from(
-      new Set(stationData.map((d) => JSON.stringify(d)))
+      new Set(stationData.map((d) => JSON.stringify(d))),
     ).map((d) => JSON.parse(d));
 
     this._lastSevenDaysData.next(values);
@@ -123,10 +124,10 @@ export class DammingsService {
 
     this.stationNames.forEach((name) => {
       const first = this._info.find(
-        (item) => item.estaci === name && item.dia === last2Days[0]
+        (item) => item.estaci === name && item.dia === last2Days[0],
       );
       const second = this._info.find(
-        (item) => item.estaci === name && item.dia === last2Days[1]
+        (item) => item.estaci === name && item.dia === last2Days[1],
       );
 
       if (first) {
@@ -142,10 +143,10 @@ export class DammingsService {
       this.stationNames
         .map((station) => {
           const inFirst = firstDayList.find(
-            (first) => first.estaci === station
+            (first) => first.estaci === station,
           );
           const inSecond = secondDayList.find(
-            (second) => second.estaci === station
+            (second) => second.estaci === station,
           );
           return inFirst ?? inSecond;
         })
@@ -169,10 +170,10 @@ export class DammingsService {
   private setStationsID(): void {
     const iDlist = new Map<string, string>();
     this.stationNames.forEach((station: string) =>
-      iDlist.set(station, window.crypto.randomUUID())
+      iDlist.set(station, uuidv4()),
     );
     this._info.forEach(
-      (info: DammingsInfo) => (info.id = iDlist.get(info.estaci))
+      (info: DammingsInfo) => (info.id = iDlist.get(info.estaci)),
     );
   }
 }

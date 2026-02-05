@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { take } from 'rxjs/operators';
+import { filter, take } from 'rxjs/operators';
 import {
   DialogLanguageDialogData,
   LANGUAGES,
@@ -66,7 +66,7 @@ export class LanguageSelectorComponent implements OnInit, AfterViewInit {
   constructor(
     private readonly translate: TranslateService,
     private readonly renderer: Renderer2,
-    private readonly dialog: DialogService
+    private readonly dialog: DialogService,
   ) {}
 
   ngOnInit(): void {
@@ -109,9 +109,14 @@ export class LanguageSelectorComponent implements OnInit, AfterViewInit {
       data: dialogData,
     });
 
-    dialogRef.afterClosed.pipe(take(1)).subscribe((lang: string) => {
-      this.translate.use(lang);
-    });
+    dialogRef.afterClosed
+      .pipe(
+        take(1),
+        filter((lang) => !!lang),
+      )
+      .subscribe((lang: string) => {
+        this.translate.use(lang);
+      });
   }
 
   private initOnLangChangeSubscription(): void {
@@ -130,7 +135,7 @@ export class LanguageSelectorComponent implements OnInit, AfterViewInit {
 
   private setSelected(): void {
     this.langsItems?.forEach(
-      (item) => (item.selected = item.code === this.translate.currentLang)
+      (item) => (item.selected = item.code === this.translate.currentLang),
     );
   }
 
@@ -143,7 +148,7 @@ export class LanguageSelectorComponent implements OnInit, AfterViewInit {
   private updateButtonsPosition(): void {
     const newLeft = this.actualButtonIndex * 100;
     this.buttonsList?.forEach((item) =>
-      this.renderer.setStyle(item.nativeElement, 'left', `${newLeft}%`)
+      this.renderer.setStyle(item.nativeElement, 'left', `${newLeft}%`),
     );
   }
 
