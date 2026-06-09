@@ -9,6 +9,7 @@ import {
   Renderer2,
   Type,
   ViewChild,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { DialogRef } from '../dialog-ref';
 import { InsertionDirective } from '../insertion.directive';
@@ -17,6 +18,7 @@ import { InsertionDirective } from '../insertion.directive';
   selector: 'dammings-overlay',
   templateUrl: './overlay.component.html',
   styleUrls: ['./overlay.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class OverlayComponent implements OnInit, OnDestroy, AfterViewInit {

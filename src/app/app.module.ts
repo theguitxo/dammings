@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { DammingsService } from './services/dammings.service';
 import { httpInterceptorProviders } from './http-interceptors';
@@ -38,6 +38,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
         ErrorsService,
         LoadingService,
         httpInterceptorProviders,
-        provideHttpClient(withInterceptorsFromDi())
+        provideHttpClient(withXhr(), withInterceptorsFromDi())
     ] })
 export class AppModule { }
