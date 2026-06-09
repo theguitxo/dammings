@@ -1,12 +1,12 @@
 import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  Input,
-  Renderer2,
-  ViewChild,
-  inject,
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    Input,
+    Renderer2,
+    ViewChild,
+    inject,
 } from '@angular/core';
 import { percentageCorrector } from '../../utils/percentage';
 
@@ -14,7 +14,6 @@ import { percentageCorrector } from '../../utils/percentage';
   selector: 'dammings-pie-chart',
   templateUrl: './pie-chart.component.html',
   styleUrls: ['./pie-chart.component.scss'],
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PieChartComponent implements AfterViewInit {
