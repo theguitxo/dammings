@@ -29,7 +29,7 @@
   "devDependencies": {
     "@angular/build": "^22.0.0",
     "@angular/cli": "~22.0.0",
-    "@angular/compiler-cli": "^22.0.0",
+    "@angular/compiler-cli": "^22.0.1",
     "@types/jasmine": "~5.1.5",
     "copyfiles": "^2.4.1",
     "istanbul-lib-instrument": "^6.0.3",
