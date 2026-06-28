@@ -1,8 +1,8 @@
 import {
-  ChangeDetectionStrategy,
-  Component,
-  Signal,
-  inject,
+    ChangeDetectionStrategy,
+    Component,
+    Signal,
+    inject,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ErrorData } from '../../app.models';
@@ -12,7 +12,6 @@ import { ErrorsService } from '../../services/errors.service';
   selector: 'dammings-errors-info',
   templateUrl: './errors-info.component.html',
   styleUrls: ['./errors-info.component.scss'],
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ErrorsInfoComponent {
