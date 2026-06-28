@@ -1,18 +1,18 @@
 import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  Input,
-  OnInit,
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    Input,
+    OnInit,
 } from '@angular/core';
 import {
-  DammingsInfo,
-  HorizontalLine,
-  HorizontalLinesValues,
-  ValueLine,
-  ValuePoint,
-  ValueTooltip,
-  VerticalLine,
+    DammingsInfo,
+    HorizontalLine,
+    HorizontalLinesValues,
+    ValueLine,
+    ValuePoint,
+    ValueTooltip,
+    VerticalLine,
 } from '../../app.models';
 import { percentageCorrector } from '../../utils/percentage';
 
@@ -28,8 +28,7 @@ const Y_LABELS_POS_Y_TRANSLATION = 0.5;
   selector: 'dammings-historic-chart',
   templateUrl: './historic-chart.component.html',
   styleUrls: ['./historic-chart.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HistoricChartComponent implements OnInit {
   @Input() info!: DammingsInfo[];

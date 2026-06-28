@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import {
-  BehaviorSubject,
-  Observable,
-  Subject,
-  catchError,
-  of,
-  take,
+    BehaviorSubject,
+    Observable,
+    Subject,
+    catchError,
+    of,
+    take,
 } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 import { DammingsInfo } from '../app.models';
