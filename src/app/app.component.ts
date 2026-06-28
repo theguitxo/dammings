@@ -1,12 +1,18 @@
 import { Component } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { RouterModule } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LANGUAGES } from './app.models';
+import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
-    standalone: false
+    imports: [
+      TranslateModule,
+      LanguageSelectorComponent,
+      RouterModule
+    ]
 })
 export class AppComponent {
   languages = new Map()
